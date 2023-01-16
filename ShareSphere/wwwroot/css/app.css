@@ -9,16 +9,6 @@ h1:focus {
     outline: none;
 }
 
-a, .btn-link {
-    color: #0071c1;
-}
-
-.btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
-}
-
 .content {
     padding-top: 1.1rem;
 }
@@ -33,6 +23,26 @@ a, .btn-link {
 
 .validation-message {
     color: red;
+}
+
+.new-navbar {
+    background-color: #2B2B2B;
+    color: #E6E6E6;
+    height: 50px;
+}
+
+.img-icon {
+    height: 25px;
+}
+
+.icon-items {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+span {
+    color: #E6E6E6;
 }
 
 #blazor-error-ui {
