@@ -93,3 +93,29 @@ span {
 		padding-left: env(safe-area-inset-left);
 	}
 }
+
+body {
+    color: #E6E6E6;
+    background-color: #1E1E1E;
+}
+
+#share-sphare-title-text {
+    background: #F9008F;
+    background: linear-gradient(to right, #F9008F 0%, #00B0FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: left;
+    margin: 10px;
+}
+
+#share-sphare-title-btn {
+    background-color: transparent;
+    border: none;
+    color: #E6E6E6;
+    float: right;
+    margin: 10px;
+}
+
+.lightblakc-background {
+    background-color: #2B2B2B;
+}
