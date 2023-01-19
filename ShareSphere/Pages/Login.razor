@@ -1,14 +1,18 @@
 ﻿@page "/login"
 
-<form id="register-form" class="container">
+<form id="register-form">
     <h3>Login</h3>
     <div class="form-group">
         <label for="email-input">E-Mail</label>
-        <input type="email" class="form-control box" id="email-input" placeholder="E-Mail">
+        <div id="email-input-div">
+            <input type="email" id="email-input" class="form-control box" placeholder="E-Mail">
+        </div>
     </div>
     <div class="form-group">
         <label for="password-input">Password</label>
-        <input type="password" class="form-control" id="password-input" placeholder="Password">
+        <div id="password-input-div">
+            <input type="password" id="password-input" class="form-control" placeholder="Password">
+        </div>
     </div>
     <div class="form-group">
         <button id="register-btn" class="btn gradient-btn btn-block">Login</button>

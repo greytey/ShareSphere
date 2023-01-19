@@ -111,20 +111,12 @@ a:active {
     color: #E6E6E6;
 }
 
-#share-sphare-title-text {
+#share-sphere-title-text {
     background: #F9008F;
     background: linear-gradient(to right, #F9008F 0%, #00B0FF 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: left;
-    margin: 10px;
-}
-
-#share-sphare-title-btn {
-    background-color: transparent;
-    border: none;
-    color: #E6E6E6;
-    float: right;
     margin: 10px;
 }
 
@@ -183,7 +175,7 @@ a:active {
 }
 
 .body {
-    margin: 20px;
+    margin: 10px;
 }
 
 .select-game-btn {
@@ -208,4 +200,36 @@ a:active {
 
 .games {
     font-size: 12px;
+}
+
+.input-shadow {
+    position: relative;
+}
+
+.input-shadow:before {
+    position: absolute;
+    z-index: -1;
+    content: "";
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, rgba(249, 0, 143, 1) 0%, rgba(0, 176, 255, 1) 100%);
+    filter: blur(10px);
+}
+
+.scroll-container {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scrollbar-width: none;
+}
+
+.scroll-content {
+    display: inline-block;
+}
+
+.scroll-container::-webkit-scrollbar {
+    width: 0.2em;
+    background-color: transparent;
 }
