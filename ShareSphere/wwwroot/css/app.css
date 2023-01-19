@@ -1,14 +1,6 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
 
-html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-h1:focus {
-    outline: none;
-}
-
 .content {
     padding-top: 1.1rem;
 }
@@ -99,7 +91,27 @@ body {
     background-color: #1E1E1E;
 }
 
-#share-sphare-title-text {
+a:link {
+    text-decoration: none;
+    color: #E6E6E6;
+}
+
+a:visited {
+    text-decoration: none;
+    color: #E6E6E6;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #E6E6E6;
+}
+
+a:active {
+    text-decoration: none;
+    color: #E6E6E6;
+}
+
+#share-sphere-title-text {
     background: #F9008F;
     background: linear-gradient(to right, #F9008F 0%, #00B0FF 100%);
     -webkit-background-clip: text;
@@ -108,15 +120,7 @@ body {
     margin: 10px;
 }
 
-#share-sphare-title-btn {
-    background-color: transparent;
-    border: none;
-    color: #E6E6E6;
-    float: right;
-    margin: 10px;
-}
-
-.lightblakc-background {
+.lightblack-background {
     background-color: #2B2B2B;
 }
 
@@ -124,10 +128,9 @@ body {
     float: right;
 }
 
-.join-btn {
-    background: rgb(249,0,143);
-    background: linear-gradient(90deg, rgba(249,0,143,1) 0%, rgba(0,176,255,1) 100%);
-    width: 60px;
+.gradient-btn {
+    background: rgb(249, 0, 143);
+    background: linear-gradient(90deg, rgba(249, 0, 143, 1) 0%, rgba(0, 176, 255, 1) 100%);
     color: #E6E6E6;
     border-radius: 5px;
     border: none;
@@ -137,4 +140,96 @@ body {
     background-color: transparent;
     border: none;
     color: #E6E6E6;
+}
+
+#register-form {
+    margin-top: 40px;
+}
+
+#register-form input {
+    background-color: #2B2B2B;
+    border: none;
+}
+
+#register-form input:focus {
+    box-shadow: 0px 0px 10px #9b41b8;
+}
+
+#register-btn {
+    margin-top: 40px;
+}
+
+#switch-link-div {
+    margin-top: 40px;
+    text-align: center;
+}
+
+#search-div input {
+    background-color: #2B2B2B;
+    border: none;
+    margin-top: 20px;
+}
+
+#search-div input:focus {
+    box-shadow: none;
+}
+
+.body {
+    margin: 10px;
+}
+
+.select-game-btn {
+    margin: 10px 0px 0px 0px;
+    background-color: #2B2B2B;
+    border: none;
+    color: #E6E6E6;
+}
+
+.profile-info-icon {
+    height: 50px;
+}
+
+.username {
+    font-size: 20px;
+}
+
+.console-label {
+    background-color: #2a2a2a;
+    padding: 2px 4px;
+}
+
+.games {
+    font-size: 12px;
+}
+
+.input-shadow {
+    position: relative;
+}
+
+.input-shadow:before {
+    position: absolute;
+    z-index: -1;
+    content: "";
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, rgba(249, 0, 143, 1) 0%, rgba(0, 176, 255, 1) 100%);
+    filter: blur(10px);
+}
+
+.scroll-container {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scrollbar-width: none;
+}
+
+.scroll-content {
+    display: inline-block;
+}
+
+.scroll-container::-webkit-scrollbar {
+    width: 0.2em;
+    background-color: transparent;
 }

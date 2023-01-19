@@ -1,0 +1,72 @@
+﻿@page "/explore"
+
+<div class="body">
+    <div id="search-div">
+        <input type="text" class="form-control" id="username-input" placeholder="Search">
+    </div>
+
+    <div class="scroll-container">
+        <div class="scroll-content">
+            <div class="row flex-row flex-nowrap">
+                <div class="col-auto select-game-div">
+                    <button class="btn select-game-btn">Fall Guys</button>
+                </div>
+                <div class="col-auto select-game-div">
+                    <button class="btn select-game-btn">Apex Legends</button>
+                </div>
+                <div class="col-auto select-game-div">
+                    <button class="btn select-game-btn">Horizon Zero Dawn</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="post mt-2">
+        <div class="row">
+            <div id="post-header" class="col">
+                <div class="row">
+                    <div id="profil-image" class="col-auto">
+                        <img src="/images/bot_fill.png" class="img-icon"/>
+                    </div>
+                    <div id="profile-name" class="col-auto">
+                        <p>Quicktey</p>
+                    </div>
+                    <div id="profile-join-btn" class="col">
+                        <button class="btn gradient-btn right-side">Join</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="post-video" class="col">
+                <video autoplay muted class="w-100">
+                    <source src="/videos/Demo_Video.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+        <div class="row">
+            <div id="post-interact" class="col">
+                <div class="row">
+                    <div id="wp-image" class="col-auto">
+                        <button class="interact-btn">WP</button>
+                    </div>
+                    <div id="comment-image" class="col-auto">
+                        <button class="interact-btn"><i class="bi bi-chat-square-text-fill"/></button>
+                    </div>
+                    <div id="bookmark-image" class="col">
+                        <button class="interact-btn right-side"><i class="bi bi-bookmark-fill"/></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="post-comment" class="col">
+                <p>Quicktey: Test Post for layout</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+}

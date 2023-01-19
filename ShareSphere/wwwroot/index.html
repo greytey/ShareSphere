@@ -23,6 +23,45 @@
 	</div>
 
 	<script src="_framework/blazor.webview.js" autostart="false"></script>
+	<script>
+		var divUsername = document.getElementById("username-input-div");
+		var divEmail = document.getElementById("email-input-div");
+		var divPassword = document.getElementById("password-input-div");
+		var divRepeatPassword = document.getElementById("repeat-password-input-div");
+
+		var inputUsername = document.getElementById("username-input");
+		var inputEmail = document.getElementById("email-input");
+		var inputPassword = document.getElementById("password-input");
+		var inputRepeatPassword = document.getElementById("repeat-password-input");
+
+		inputUsername.addEventListener("focus", function () {
+			divUsername.classList.add("input-shadow");
+		});
+		inputUsername.addEventListener("blur", function () {
+			divUsername.classList.remove("input-shadow");
+		});
+
+		inputEmail.addEventListener("focus", function () {
+			divEmail.classList.add("input-shadow");
+		});
+		inputEmail.addEventListener("blur", function () {
+			divEmail.classList.remove("input-shadow");
+		});
+
+		inputPassword.addEventListener("focus", function () {
+			divPassword.classList.add("input-shadow");
+		});
+		inputPassword.addEventListener("blur", function () {
+			divPassword.classList.remove("input-shadow");
+		});
+
+		inputRepeatPassword.addEventListener("focus", function () {
+			divRepeatPassword.classList.add("input-shadow");
+		});
+		inputRepeatPassword.addEventListener("blur", function () {
+			divRepeatPassword.classList.remove("input-shadow");
+		});
+	</script>
 
 </body>
 
