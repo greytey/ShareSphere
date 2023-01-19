@@ -86,11 +86,14 @@ span {
 	}
 }
 
+/* html tag styles */
 body {
     color: #E6E6E6;
     background-color: #1E1E1E;
+    width: 100%;
 }
 
+/* link styling */
 a:link {
     text-decoration: none;
     color: #E6E6E6;
@@ -111,7 +114,8 @@ a:active {
     color: #E6E6E6;
 }
 
-#share-sphere-title-text {
+/* header styles */
+#share-sphare-title-text {
     background: #F9008F;
     background: linear-gradient(to right, #F9008F 0%, #00B0FF 100%);
     -webkit-background-clip: text;
@@ -124,100 +128,104 @@ a:active {
     background-color: #2B2B2B;
 }
 
-.right-side {
-    float: right;
+/* general styles */
+.body {
+    margin: 10px;
 }
 
-.gradient-btn {
-    background: rgb(249, 0, 143);
-    background: linear-gradient(90deg, rgba(249, 0, 143, 1) 0%, rgba(0, 176, 255, 1) 100%);
+/* post styles */
+#post-comment{
+    font-size: 12px;
+}
+
+/* button styles */
+button {
     color: #E6E6E6;
     border-radius: 5px;
     border: none;
 }
 
+    button:focus {
+        outline: none;
+    }
+
+.gradient-btn {
+    background: rgb(249, 0, 143);
+    background: linear-gradient(90deg, rgba(249, 0, 143, 1) 0%, rgba(0, 176, 255, 1) 100%);
+}
+
 .interact-btn {
     background-color: transparent;
-    border: none;
-    color: #E6E6E6;
-}
-
-#register-form {
-    margin-top: 40px;
-}
-
-#register-form input {
-    background-color: #2B2B2B;
-    border: none;
-}
-
-#register-form input:focus {
-    box-shadow: 0px 0px 10px #9b41b8;
 }
 
 #register-btn {
     margin-top: 40px;
 }
 
+.select-game-btn {
+    margin: 10px 5px 5px 0px;
+    background-color: #2B2B2B;
+}
+
+    .select-game-btn:active {
+        box-shadow: 0px 0px 5px gray;
+    }
+
+/* login/register form styles */
+#register-form {
+    margin-top: 40px;
+}
+
+    #register-form input {
+        background-color: #2B2B2B;
+        border: none;
+    }
+
+        #register-form input:focus {
+            box-shadow: none;
+        }
+
+        #register-form input::placeholder {
+            color: #585858;
+        }
+
 #switch-link-div {
     margin-top: 40px;
     text-align: center;
 }
 
+.gradient-shadow {
+    position: relative;
+}
+
+    .gradient-shadow:before {
+        position: absolute;
+        z-index: -1;
+        content: "";
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(90deg, rgba(249, 0, 143, 1) 0%, rgba(0, 176, 255, 1) 100%);
+        filter: blur(10px);
+    }
+
+/* search */
 #search-div input {
     background-color: #2B2B2B;
     border: none;
     margin-top: 20px;
 }
 
-#search-div input:focus {
-    box-shadow: none;
-}
+    #search-div input:focus {
+        box-shadow: none;
+    }
 
-.body {
-    margin: 10px;
-}
+    #search-div input::placeholder {
+        color: #585858;
+    }
 
-.select-game-btn {
-    margin: 10px 0px 0px 0px;
-    background-color: #2B2B2B;
-    border: none;
-    color: #E6E6E6;
-}
-
-.profile-info-icon {
-    height: 50px;
-}
-
-.username {
-    font-size: 20px;
-}
-
-.console-label {
-    background-color: #2a2a2a;
-    padding: 2px 4px;
-}
-
-.games {
-    font-size: 12px;
-}
-
-.input-shadow {
-    position: relative;
-}
-
-.input-shadow:before {
-    position: absolute;
-    z-index: -1;
-    content: "";
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: linear-gradient(90deg, rgba(249, 0, 143, 1) 0%, rgba(0, 176, 255, 1) 100%);
-    filter: blur(10px);
-}
-
+/* select game in explore */
 .scroll-container {
     overflow-x: scroll;
     overflow-y: hidden;
@@ -232,4 +240,23 @@ a:active {
 .scroll-container::-webkit-scrollbar {
     width: 0.2em;
     background-color: transparent;
+}
+
+/* profile styles */
+.profile-info-icon {
+    height: 50px;
+}
+
+.username {
+    font-size: 20px;
+}
+
+.platform-label {
+    background-color: #2B2B2B;
+    padding: 2px 4px;
+    border-radius: 5px;
+}
+
+.games {
+    font-size: 12px;
 }
