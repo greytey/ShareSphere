@@ -204,7 +204,7 @@ a:active {
 }
 
 .body {
-    margin: 20px;
+    margin: 15px;
 }
 
 .select-game-btn {
@@ -212,4 +212,21 @@ a:active {
     background-color: #2B2B2B;
     border: none;
     color: #E6E6E6;
+}
+
+.profile-info-icon {
+    height: 50px;
+}
+
+.username {
+    font-size: 20px;
+}
+
+.console-label {
+    background-color: #2a2a2a;
+    padding: 2px 4px;
+}
+
+.games {
+    font-size: 12px;
 }
