@@ -18,7 +18,11 @@ public static class MauiProgram
 		#if DEBUG
 		builder.Services.AddBlazorWebViewDeveloperTools();
 #endif
+		
+		builder.Services.AddSingleton<FirebaseAuthentication>();
+        builder.Services.AddSingleton<FirebaseDatabase>();
 
-		return builder.Build();
+
+        return builder.Build();
 	}
 }
