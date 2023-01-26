@@ -1,5 +1,7 @@
-﻿@page "/login"
+﻿@page "/"
+@layout FirstLayout
 @inject ShareSphere.Data.FirebaseAuthentication firebaseAuth
+@inject NavigationManager navMan
 
 <form id="register-form">
     <h3>Login</h3>
@@ -21,7 +23,7 @@
         </div>
     </div>
     <div id="switch-link-div" class="form-group">
-        <a href="register.html">Go to registration</a>
+        <a href="/register">Go to registration</a>
     </div>
 </form>
 
@@ -32,6 +34,10 @@
     void loginUser()
     {
         var userCredentials = firebaseAuth.getClient().SignInWithEmailAndPasswordAsync(email, passwort);
+        if(userCredentials != null)
+        {
+            navMan.NavigateTo("/forMe", true);
+        }
     }
 
 }
