@@ -1,21 +1,24 @@
 ﻿@page "/login"
+@inject ShareSphere.Data.FirebaseAuthentication firebaseAuth
 
 <form id="register-form">
     <h3>Login</h3>
     <div class="form-group">
         <label for="email-input">E-Mail</label>
         <div id="email-input-div">
-            <input type="email" id="email-input" class="form-control box" placeholder="E-Mail">
+            <input type="email" @bind="@email" id="email-input" class="form-control box" placeholder="E-Mail">
         </div>
     </div>
     <div class="form-group">
         <label for="password-input">Password</label>
         <div id="password-input-div">
-            <input type="password" id="password-input" class="form-control" placeholder="Password">
+            <input type="password" @bind="@passwort" id="password-input" class="form-control" placeholder="Password">
         </div>
     </div>
     <div class="form-group">
-        <button id="register-btn" class="btn gradient-btn btn-block">Login</button>
+        <div id="register-btn-div">
+            <button id="register-btn" class="gradient-btn w-100" onclick="@loginUser">Login</button>
+        </div>
     </div>
     <div id="switch-link-div" class="form-group">
         <a href="register.html">Go to registration</a>
@@ -23,5 +26,12 @@
 </form>
 
 @code {
+    private string email;
+    private string passwort;
+
+    void loginUser()
+    {
+        var userCredentials = firebaseAuth.getClient().SignInWithEmailAndPasswordAsync(email, passwort);
+    }
 
 }

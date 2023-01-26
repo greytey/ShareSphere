@@ -1,36 +1,41 @@
 ﻿@page "/otherprofile" //später /profile/{user}
 
-<div class="body">
-    <div class="profile-info my-2">
-        <div class="row">
-            <div class="col-3 mr-1 py-2">
-                <img src="/images/bot_fill.png" class="rounded-circle profile-info-icon" />
+<div class="profile-info my-2">
+    <div class="row">
+        <div class="col-3 mr-1 py-2">
+            <img src="/images/bot_fill.png" class="rounded-circle profile-info-icon" />
+        </div>
+        <div class="col-9 ml-1">
+            <div class="row username">Quicktey</div>
+            <div class="row">
+                <div class="col-auto platform-label rounded-1 m-1 px-2 py-1">PC</div>
+                <div class="col-auto platform-label rounded-1 m-1 px-2 py-1">PS5</div>
+                <div class="col-auto platform-label rounded-1 m-1 px-2 py-1">Switch</div>
             </div>
-            <div class="col-9 ml-1">
-                <div class="row username">Quicktey</div>
-                <div class="row">
-                    <div class="col-auto console-label rounded-1 m-1 px-2 py-1">PC</div>
-                    <div class="col-auto console-label rounded-1 m-1 px-2 py-1">PS5</div>
-                    <div class="col-auto console-label rounded-1 m-1 px-2 py-1">SWITCH</div>
-                </div>
-                <div class="row games">
+            <div class="row games">
+                <div class="col">
                     Apex Legends / Horizon Forbidden West / Fall Guys
                 </div>
             </div>
         </div>
-        <div class="row">
+    </div>
+    <div class="row">
+        <div class="col">
             I identify as he / him<br />
             Developer<br />
             Gamer<br />
         </div>
-        <div class="row my-2">
-            <div class="col mx-1"><button class="gradient-btn">Join</button></div>
+    </div>
+    <div class="row my-2">
+        <div class="col">
+            <div id="join-btn-div">
+                <button id="join-btn" class="gradient-btn btn-block">Join</button>
+            </div>
         </div>
-        <button class="btn gradient-btn w-100 my-2">Add post</button>
     </div>
-    <div class="profile-posts text-center h-100 align-items-center">
-        <div>No content added yet</div>
-    </div>
+</div>
+<div class="profile-posts text-center h-100 align-items-center">
+    <div>No content added yet</div>
 </div>
 
 @code {

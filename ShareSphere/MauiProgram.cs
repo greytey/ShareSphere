@@ -20,8 +20,10 @@ public static class MauiProgram
 		builder.Services.AddBlazorWebViewDeveloperTools();
 #endif
 		
-		builder.Services.AddSingleton<WeatherForecastService>();
+		builder.Services.AddSingleton<FirebaseAuthentication>();
+        builder.Services.AddSingleton<FirebaseDatabase>();
 
-		return builder.Build();
+
+        return builder.Build();
 	}
 }
