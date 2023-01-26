@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShareSphere.Data
 {
-    internal class Policies
+    public class Policies
     {
         public static bool checkUsername(string username)
         {

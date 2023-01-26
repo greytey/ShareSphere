@@ -1,5 +1,7 @@
 ﻿@page "/register"
+@layout FirstLayout
 @inject ShareSphere.Data.FirebaseAuthentication firebaseAuth
+@inject NavigationManager navMan
 
 <form id="register-form">
     <h3>Register</h3>
@@ -33,7 +35,7 @@
         </div>
     </div>
     <div id="switch-link-div" class="form-group">
-        <a href="login.html">Go to login</a>
+        <a href="/">Go to login</a>
     </div>
 </form>
 
@@ -45,9 +47,13 @@
 
     void register()
     {
-        if(passwort == repPasswort)
+        if ((passwort == repPasswort) && (ShareSphere.Data.Policies.checkEmail(email)) && (ShareSphere.Data.Policies.checkUsername(username)) && (ShareSphere.Data.Policies.checkPassword(passwort)))
         {
             var userCredentials = firebaseAuth.getClient().CreateUserWithEmailAndPasswordAsync(email, passwort, username);
+            if(userCredentials != null)
+            {
+                navMan.NavigateTo("/forMe");
+            }
         }
 
     }
