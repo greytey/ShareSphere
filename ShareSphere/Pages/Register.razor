@@ -1,8 +1,9 @@
 ﻿@page "/register"
 @layout FirstLayout
-@inject ShareSphere.Data.FirebaseAuthentication firebaseAuth
-@inject NavigationManager navMan
 @using ShareSphere.Data
+@inject NavigationManager navMan
+@inject FirebaseAuthentication firebaseAuth
+@inject FirebaseDatabase db
 
 <form id="register-form">
     <h3>Register</h3>
@@ -55,7 +56,9 @@
                 UserCredential userCredentials = await firebaseAuth.getClient().CreateUserWithEmailAndPasswordAsync(email, passwort, username);
                 if (userCredentials != null)
                 {
-                    firebaseAuth.setLoggedInuser(new Gamer(userCredentials.User.Uid, username));
+                    Gamer gamer = new Gamer(userCredentials.User.Uid, username);
+                    firebaseAuth.setLoggedInuser(gamer);
+                    db.addGamer(gamer);
                     navMan.NavigateTo("/forMe");
                 }
             } catch (FirebaseAuthException ex)
