@@ -1,5 +1,7 @@
-﻿@page "/profile/{user}"
+﻿@page "/profile/{potentialUser}"
 @using ShareSphere.Data;
+@inject FirebaseDatabase db
+@inject NavigationManager navMan
 
 <div class="profile-info my-2">
     <div class="row">
@@ -56,7 +58,17 @@
 
 @code {
     [Parameter]
-    public Gamer gamer { get; set; }
+    public string potentialUser { get; set; }
+    public Gamer gamer;
+
+    protected async override void OnInitialized()
+    {
+        gamer = await db.getUsername(potentialUser);
+        if(gamer == null)
+        {
+            navMan.NavigateTo("/explore");
+        }
+    }
 
 }
 
