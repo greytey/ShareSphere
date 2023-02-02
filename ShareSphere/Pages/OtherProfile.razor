@@ -9,9 +9,17 @@
         <div class="col-9 ml-1">
             <div class="row username">@gamer.getUsername()</div>
             <div class="row">
-                <div class="col-auto platform-label rounded-1 m-1 px-2 py-1">PC</div>
-                <div class="col-auto platform-label rounded-1 m-1 px-2 py-1">PS5</div>
-                <div class="col-auto platform-label rounded-1 m-1 px-2 py-1">Switch</div>
+                @if (gamer.getPlatforms().Count > 0)
+                {
+                    @foreach (int i in gamer.getPlatforms())
+                    {
+                        <div class="col-auto platform-label rounded-1 m-1 px-2 py-1">@i</div>
+                    }
+                }
+                else
+                {
+                    <span>Keine Plattform ausgewählt</span>
+                }
             </div>
             <div class="row games">
                 <div class="col">
@@ -25,7 +33,6 @@
                     {
                         <span>Keine Games ausgewählt</span>
                     }
-
                 </div>
             </div>
         </div>
