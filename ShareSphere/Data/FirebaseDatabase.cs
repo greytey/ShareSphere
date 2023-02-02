@@ -32,20 +32,14 @@ namespace ShareSphere.Data
               .ToList();
         }
 
-        public async Task updateGamer(string id, Gamer gamer)
+        public async void updateGamer(string id, Gamer gamer)
         {
-            var gamers = await firebaseClient
-              .Child("gamers")
-              .Child(id)
-              .PutAsync(gamer);
+            await firebaseClient.Child("gamers").Child(id).PutAsync(gamer);
         }
 
-        public async Task removeGamer(string id)
+        public async void removeGamer(string id)
         {
-            var gamers = await firebaseClient
-              .Child("gamers")
-              .Child(id)
-              .DeleteAsync();
+            await firebaseClient.Child("gamers").Child(id).DeleteAsync();
         }
     }
 }
