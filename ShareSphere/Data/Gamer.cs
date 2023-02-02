@@ -6,20 +6,28 @@ using System.Threading.Tasks;
 
 namespace ShareSphere.Data
 {
-    internal class Gamer
+    public class Gamer
     {
-        private string username;
-        private string email;
-        private string password;
+        private string userId { get; set; }
+        private string username { get; set; }
+        private List<Gamer> joinedAsString { get; set; }
         private List<Gamer> joined;
         private List<Gamer> isJoinedBy;
 
-        public Gamer(string username, string email, string password, List<Gamer> joined)
+        public Gamer(string userId, string username)
         {
+            this.userId = userId;
             this.username = username;
-            this.email = email;
-            this.password = password;
-            this.joined = joined;
+        }
+
+        public string getUserId()
+        {
+            return userId;
+        }
+
+        public void setUserId(string userId)
+        {
+            this.userId = userId;
         }
 
         public string getUseranme()
@@ -30,26 +38,6 @@ namespace ShareSphere.Data
         public void setUsername(string username)
         {
             this.username = username;
-        }
-
-        public string getEmail()
-        {
-            return email;
-        }
-
-        public void setEmail(string email)
-        {
-            this.email = email;
-        }
-
-        public string getPassword()
-        {
-            return password;
-        }
-
-        public void setPassword(string password)
-        {
-            this.password = password;
         }
 
         public List<Gamer> getJoined()
