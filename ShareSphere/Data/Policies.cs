@@ -10,15 +10,23 @@ namespace ShareSphere.Data
     {
         public static bool checkUsername(string username)
         {
-            if (!username.Contains(" "))
+            if(username.Length >= 3 && username != null)
             {
-                return true;
-            }
-            else
+                if (!username.Contains(" "))
+                {
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("Username has whitespaces");
+                    return false;
+                }
+            } else
             {
-                Console.WriteLine("Username has whitespaces");
+                Console.WriteLine("Username is too short");
                 return false;
             }
+
         }
 
         public static bool checkEmail(string email)
@@ -52,47 +60,55 @@ namespace ShareSphere.Data
 
         public static bool checkPassword(string password)
         {
-            if (!password.Contains(" "))
+            if(password.Length >= 8 && password != null)
             {
-                if (password.Any(char.IsDigit))
+                if (!password.Contains(" "))
                 {
-                    if (password.Any(char.IsLetter))
+                    if (password.Any(char.IsDigit))
                     {
-                        if (password.Any(char.IsUpper))
+                        if (password.Any(char.IsLetter))
                         {
-                            if (password.Any(char.IsLower))
+                            if (password.Any(char.IsUpper))
                             {
-                                return true;
+                                if (password.Any(char.IsLower))
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Password has no lower case letter");
+                                    return false;
+                                }
                             }
                             else
                             {
-                                Console.WriteLine("Password has no lower case letter");
+                                Console.WriteLine("Password has no upper case letter");
                                 return false;
                             }
                         }
                         else
                         {
-                            Console.WriteLine("Password has no upper case letter");
+                            Console.WriteLine("Password has no letter");
                             return false;
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Password has no letter");
+                        Console.WriteLine("Password has no number");
                         return false;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Password has no number");
+                    Console.WriteLine("Password has whitespaces");
                     return false;
                 }
-            }
-            else
+            } else
             {
-                Console.WriteLine("Password has whitespaces");
+                Console.WriteLine("Password is too short");
                 return false;
             }
+            
         }
     }
 }

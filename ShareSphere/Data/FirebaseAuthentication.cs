@@ -14,7 +14,6 @@ namespace ShareSphere.Data
                 new EmailProvider()
             },
             UserRepository = new FileUserRepository("FirebaseSample"), 
-            //UserRepository = new StorageRepository()
         };
 
         private FirebaseAuthClient client = new FirebaseAuthClient(config);
