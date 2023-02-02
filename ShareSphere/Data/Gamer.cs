@@ -8,69 +8,38 @@ namespace ShareSphere.Data
 {
     public class Gamer
     {
-        private string userId { get; set; }
-        private string username { get; set; }
-        private string biography { get; set; }
-        private List<int> platforms { get; set; }
-        private List<int> games { get; set; }
-        private List<String> joinedAsString { get; set; }
+        public string userId { get; set; }
+        public string username { get; set; }
+        public string biography { get; set; }
+        public List<int> platforms { get; set; }
+        public List<int> games { get; set; }
+        public List<string> joinedAsString { get; set; }
         private List<Gamer> joined;
         private List<Gamer> isJoinedBy;
+
+        public Gamer()
+        {
+
+        }
 
         public Gamer(string userId, string username)
         {
             this.userId = userId;
             this.username = username;
-            this.biography = "I'm new to this app";
+            biography = "I'm new to this app";
+            platforms = new List<int>();
+            games = new List<int>();
+            joinedAsString = new List<string>();
         }
 
-        public Gamer(string userId, string username, string biography, List<int> platforms, List<int> games)
+        public Gamer(string userId, string username, string biography, List<int> platforms, List<int> games, List<string> joinedAsString)
         {
             this.userId = userId;
             this.username = username;
             this.biography = biography;
             this.platforms = platforms;
             this.games = games;
-        }
-
-        public string getUserId()
-        {
-            return userId;
-        }
-
-        public void setUserId(string userId)
-        {
-            this.userId = userId;
-        }
-
-        public string getUsername()
-        {
-            return username;
-        }
-
-        public void setUsername(string username)
-        {
-            this.username = username;
-        }
-
-        public string getBiography()
-        {
-            return biography;
-        }
-
-        public List<int> getPlatforms()
-        {
-            return platforms;
-        }
-
-        public List<int> getGames()
-        {
-            return games;
-        }
-
-        public List<string> getJoinedAsString()
-        {
-            return joinedAsString;
+            this.joinedAsString= joinedAsString;
         }
 
         public List<Gamer> getJoined()
