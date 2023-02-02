@@ -21,6 +21,7 @@ namespace ShareSphere.Data
         {
             this.userId = userId;
             this.username = username;
+            this.biography = "I'm new to this app";
         }
 
         public Gamer(string userId, string username, string biography, List<int> platforms, List<int> games)
@@ -42,7 +43,7 @@ namespace ShareSphere.Data
             this.userId = userId;
         }
 
-        public string getUseranme()
+        public string getUsername()
         {
             return username;
         }
