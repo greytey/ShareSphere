@@ -31,13 +31,20 @@
     private string email;
     private string passwort;
 
-    void loginUser()
+    async void loginUser()
     {
-        var userCredentials = firebaseAuth.getClient().SignInWithEmailAndPasswordAsync(email, passwort);
-        if(userCredentials != null)
+        try
         {
-            navMan.NavigateTo("/forMe", true);
+            var userCredentials = await firebaseAuth.getClient().SignInWithEmailAndPasswordAsync(email, passwort);
+            if (userCredentials != null)
+            {
+                navMan.NavigateTo("/forMe", true);
+            }
+        } catch (FirebaseAuthException ex)
+        {
+            
         }
+
     }
 
 }

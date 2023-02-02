@@ -45,15 +45,22 @@
     private string passwort;
     private string repPasswort;
 
-    void register()
+    async void register()
     {
         if ((passwort == repPasswort) && (ShareSphere.Data.Policies.checkEmail(email)) && (ShareSphere.Data.Policies.checkUsername(username)) && (ShareSphere.Data.Policies.checkPassword(passwort)))
         {
-            var userCredentials = firebaseAuth.getClient().CreateUserWithEmailAndPasswordAsync(email, passwort, username);
-            if(userCredentials != null)
+            try
             {
-                navMan.NavigateTo("/forMe");
+                var userCredentials = await firebaseAuth.getClient().CreateUserWithEmailAndPasswordAsync(email, passwort, username);
+                if (userCredentials != null)
+                {
+                    navMan.NavigateTo("/forMe");
+                }
+            } catch (FirebaseAuthException ex)
+            {
+                
             }
+
         }
 
     }
