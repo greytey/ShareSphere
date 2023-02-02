@@ -10,13 +10,13 @@
         <div class="col-9 ml-1">
             <div class="row username">
                 <div class="col">
-                    @gamer.getUsername()
+                    @gamer.username
                 </div>
             </div>
             <div class="row">
-                @if (gamer.getPlatforms().Count > 0)
+                @if (gamer.platforms.Count > 0)
                 {
-                    @foreach (int i in gamer.getPlatforms())
+                    @foreach (int i in gamer.platforms)
                     {
                         <div class="col-auto platform-label rounded-1 m-1 px-2 py-1">@i</div>
                     }
@@ -28,9 +28,9 @@
             </div>
             <div class="row games">
                 <div class="col">
-                    @if (gamer.getGames().Count > 0)
+                    @if (gamer.games.Count > 0)
                     {
-                        @foreach (int i in gamer.getGames())
+                        @foreach (int i in gamer.games)
                         {
                             <span>/ Game Nr. @i /</span>
                         }
@@ -45,7 +45,7 @@
     </div>
     <div class="row">
         <div class="col">
-                @gamer.getBiography();
+                @gamer.biography
         </div>
     </div>
     <div class="row my-2 text-center">
