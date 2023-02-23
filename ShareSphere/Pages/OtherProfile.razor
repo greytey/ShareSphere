@@ -1,5 +1,6 @@
 ﻿@page "/profile/{potentialUser}"
 @using ShareSphere.Data;
+@inject FirebaseAuthentication firebaseAuth
 @inject FirebaseDatabase db
 @inject NavigationManager navMan
 
@@ -52,7 +53,7 @@
         <div class="row my-2">
             <div class="col">
                 <div id="join-btn-div">
-                    <button id="join-btn" class="gradient-btn btn-block">Join</button>
+                    <button id="join-btn" class="gradient-btn btn-block" onclick="@joinBtnClicked">Join</button>
                 </div>
             </div>
         </div>
@@ -79,5 +80,17 @@
         }
     }
 
+    private async void joinBtnClicked()
+    {
+        Gamer loggedInGamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
+        if (!loggedInGamer.joins(gamer))
+        {
+            loggedInGamer.addJoined(gamer);
+        }
+        else
+        {
+            loggedInGamer.removedJoined(gamer);
+        }
+    }
 }
 

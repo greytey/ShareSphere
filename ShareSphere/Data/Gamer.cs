@@ -52,10 +52,25 @@ namespace ShareSphere.Data
         public void addJoined(Gamer gamer)
         {
             joined.Add(gamer);
+            joinedAsString.Add(gamer.username);
         }
+
+        public bool joins(Gamer gamer)
+        {
+            foreach(Gamer iterate in joined)
+            {
+                if(iterate == gamer)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void removedJoined(Gamer gamer)
         {
             joined.Remove(gamer);
+            joinedAsString.Remove(gamer.username);
         }
 
         public List<Gamer> getIsJoinedBy()
