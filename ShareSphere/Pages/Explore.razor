@@ -3,7 +3,7 @@
 @inject ShareSphere.Data.FirebaseDatabase firebaseDatabase
 
 <div id="search-div">
-    <input type="text" id="username-input" @bind="@userSearch" @onkeydown="@Enter" @onkeypress="@Enter" class="form-control" placeholder="Search">
+    <input type="text" id="username-input" @bind="@userSearch" @onkeyup="@Enter" class="form-control" placeholder="Search">
 </div>
 
 <div class="scroll-container">
@@ -36,7 +36,7 @@
 
     public void Enter(KeyboardEventArgs e)
     {
-        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        if (e.Key.ToLower() == "numpadenter" || e.Key.ToLower() == "enter")
         {
             search();
         }
