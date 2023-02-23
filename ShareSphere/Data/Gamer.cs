@@ -19,7 +19,9 @@ namespace ShareSphere.Data
 
         public Gamer()
         {
-
+            platforms = new List<int>();
+            games = new List<int>();
+            joinedAsString = new List<string>();
         }
 
         public Gamer(string userId, string username)
