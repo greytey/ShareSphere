@@ -19,7 +19,7 @@ namespace ShareSphere.Data
             await firebaseClient
               .Child("gamers")
               .Child(gamer.userId)
-              .PostAsync(gamer);
+              .PutAsync(gamer);
         }
 
         public async Task<List<Gamer>> getGamers()
@@ -41,7 +41,7 @@ namespace ShareSphere.Data
 
         public async void updateGamer(string id, Gamer gamer)
         {
-            await firebaseClient.Child("gamers").Child(gamer.userId).Child(id).PutAsync(gamer);
+            await firebaseClient.Child("gamers").Child(gamer.userId).PutAsync(gamer);
         }
 
         public async void removeGamer(Gamer gamer)
@@ -69,7 +69,7 @@ namespace ShareSphere.Data
 
             foreach (Gamer gamer in gamers)
             {
-                if (gamer.userId.Contains(username))
+                if (gamer.username.Contains(username))
                 {
                     return gamer;
                 }
