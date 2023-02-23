@@ -85,12 +85,13 @@
         Gamer loggedInGamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
         if (!loggedInGamer.joins(gamer))
         {
-            loggedInGamer.addJoined(gamer);
+            loggedInGamer.addJoins(gamer);
         }
         else
         {
-            loggedInGamer.removedJoined(gamer);
+            loggedInGamer.removeJoins(gamer);
         }
+        db.updateGamer(loggedInGamer);
     }
 }
 

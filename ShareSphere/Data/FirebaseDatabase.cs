@@ -43,7 +43,7 @@ namespace ShareSphere.Data
             return this.gamers != null;
         }
 
-        public async void updateGamer(string id, Gamer gamer)
+        public async void updateGamer(Gamer gamer)
         {
             await firebaseClient.Child("gamers").Child(gamer.userId).PutAsync(gamer);
             await getGamers();

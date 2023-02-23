@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,8 +15,6 @@ namespace ShareSphere.Data
         public List<int> platforms { get; set; }
         public List<int> games { get; set; }
         public List<string> joinedAsString { get; set; }
-        private List<Gamer> joined;
-        private List<Gamer> isJoinedBy;
 
         public Gamer()
         {
@@ -44,22 +43,11 @@ namespace ShareSphere.Data
             this.joinedAsString= joinedAsString;
         }
 
-        public List<Gamer> getJoined()
-        {
-            return joined;
-        }
-
-        public void addJoined(Gamer gamer)
-        {
-            joined.Add(gamer);
-            joinedAsString.Add(gamer.username);
-        }
-
         public bool joins(Gamer gamer)
         {
-            foreach(Gamer iterate in joined)
+            foreach(string iterate in joinedAsString)
             {
-                if(iterate == gamer)
+                if(iterate == gamer.username)
                 {
                     return true;
                 }
@@ -67,24 +55,14 @@ namespace ShareSphere.Data
             return false;
         }
 
-        public void removedJoined(Gamer gamer)
+        public void addJoins(Gamer gamer)
         {
-            joined.Remove(gamer);
+            joinedAsString.Add(gamer.username);
+        }
+
+        public void removeJoins(Gamer gamer)
+        {
             joinedAsString.Remove(gamer.username);
-        }
-
-        public List<Gamer> getIsJoinedBy()
-        {
-            return isJoinedBy;
-        }
-
-        public void addIsJoinedBy(Gamer gamer)
-        {
-            isJoinedBy.Add(gamer);
-        }
-        public void removedIsJoinedBy(Gamer gamer)
-        {
-            isJoinedBy.Remove(gamer);
         }
     }
 }
