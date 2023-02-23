@@ -2,6 +2,7 @@
 @using ShareSphere.Data
 @inject FirebaseAuthentication firebaseAuth
 @inject FirebaseDatabase db
+@inject NavigationManager navMan
 
 
 @if(gamer == null)
@@ -63,7 +64,7 @@
             </div>
             <div class="col">
                 <div id="settings-btn-div">
-                    <button id="settings-btn" class="gradient-btn w-100">Settings</button>
+                    <button id="settings-btn" class="gradient-btn w-100" onclick="@signOut">Sign out</button>
                 </div>
             </div>
         </div>
@@ -81,5 +82,11 @@
     {
         gamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
         StateHasChanged();
+    }
+
+    private void signOut()
+    {
+        firebaseAuth.getClient().SignOut();
+        navMan.NavigateTo("/");
     }
 }
