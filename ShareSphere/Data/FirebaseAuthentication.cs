@@ -6,6 +6,8 @@ namespace ShareSphere.Data
 {
     public class FirebaseAuthentication
     {
+        private Gamer currentlyLoggedInUser = null;
+
         private static FirebaseAuthConfig config = new FirebaseAuthConfig {
             ApiKey = "AIzaSyA6PrPGDJNbv0jv_y4jvJPz48tMz0e8Et4",
             AuthDomain = "sharesphere-b9b02.firebaseapp.com",
@@ -14,7 +16,6 @@ namespace ShareSphere.Data
                 new EmailProvider()
             },
             UserRepository = new FileUserRepository("FirebaseSample"), 
-            //UserRepository = new StorageRepository()
         };
 
         private FirebaseAuthClient client = new FirebaseAuthClient(config);
@@ -22,6 +23,16 @@ namespace ShareSphere.Data
         public FirebaseAuthClient getClient()
         {
             return client;
+        }
+
+        public Gamer getLoggedInUser()
+        {
+            return currentlyLoggedInUser;
+        }
+
+        public void setLoggedInuser(Gamer gamer)
+        {
+            currentlyLoggedInUser = gamer;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Java.Util;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,50 +6,40 @@ using System.Threading.Tasks;
 
 namespace ShareSphere.Data
 {
-    internal class Gamer
+    public class Gamer
     {
-        private string username;
-        private string email;
-        private string password;
+        public string userId { get; set; }
+        public string username { get; set; }
+        public string biography { get; set; }
+        public List<int> platforms { get; set; }
+        public List<int> games { get; set; }
+        public List<string> joinedAsString { get; set; }
         private List<Gamer> joined;
         private List<Gamer> isJoinedBy;
 
-        public Gamer(string username, string email, string password, List<Gamer> joined)
+        public Gamer()
         {
+
+        }
+
+        public Gamer(string userId, string username)
+        {
+            this.userId = userId;
             this.username = username;
-            this.email = email;
-            this.password = password;
-            this.joined = joined;
+            biography = "I'm new to this app";
+            platforms = new List<int>();
+            games = new List<int>();
+            joinedAsString = new List<string>();
         }
 
-        public string getUseranme()
+        public Gamer(string userId, string username, string biography, List<int> platforms, List<int> games, List<string> joinedAsString)
         {
-            return username;
-        }
-
-        public void setUsername(string username)
-        {
+            this.userId = userId;
             this.username = username;
-        }
-
-        public string getEmail()
-        {
-            return email;
-        }
-
-        public void setEmail(string email)
-        {
-            this.email = email;
-        }
-
-        public string getPassword()
-        {
-            return password;
-        }
-
-        public void setPassword(string password)
-        {
-            this.password = password;
+            this.biography = biography;
+            this.platforms = platforms;
+            this.games = games;
+            this.joinedAsString= joinedAsString;
         }
 
         public List<Gamer> getJoined()
@@ -61,10 +50,25 @@ namespace ShareSphere.Data
         public void addJoined(Gamer gamer)
         {
             joined.Add(gamer);
+            joinedAsString.Add(gamer.username);
         }
+
+        public bool joins(Gamer gamer)
+        {
+            foreach(Gamer iterate in joined)
+            {
+                if(iterate == gamer)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void removedJoined(Gamer gamer)
         {
             joined.Remove(gamer);
+            joinedAsString.Remove(gamer.username);
         }
 
         public List<Gamer> getIsJoinedBy()

@@ -1,7 +1,9 @@
 ﻿@page "/explore"
+@inject NavigationManager navMan
+@inject ShareSphere.Data.FirebaseDatabase firebaseDatabase
 
 <div id="search-div">
-    <input type="text" class="form-control" id="username-input" placeholder="Search">
+    <input type="text" id="username-input" @bind="@userSearch" @onkeydown="@Enter" class="form-control" placeholder="Search">
 </div>
 
 <div class="scroll-container">
@@ -21,5 +23,22 @@
 </div>
 
 @code {
+    private string userSearch;
 
+    async void search()
+    {
+        if (userSearch.Length >= 3)
+        {
+            navMan.NavigateTo("/profile/userSearch");
+        }
+
+    }
+
+    public void Enter(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" || e.Code == "NumpadEnter")
+        {
+            search();
+        }
+    }
 }

@@ -2,6 +2,7 @@
 @layout FirstLayout
 @inject ShareSphere.Data.FirebaseAuthentication firebaseAuth
 @inject NavigationManager navMan
+@using ShareSphere.Data
 
 <form id="register-form">
     <h3>Login</h3>
@@ -31,13 +32,21 @@
     private string email;
     private string passwort;
 
-    void loginUser()
+    async void loginUser()
     {
-        var userCredentials = firebaseAuth.getClient().SignInWithEmailAndPasswordAsync(email, passwort);
-        if(userCredentials != null)
+        try
         {
-            navMan.NavigateTo("/forMe", true);
+            UserCredential userCredentials = await firebaseAuth.getClient().SignInWithEmailAndPasswordAsync(email, passwort);
+            if (userCredentials != null)
+            {
+                firebaseAuth.setLoggedInuser(new Gamer(userCredentials.User.Uid, userCredentials.User.Uid));
+                navMan.NavigateTo("/forMe", true);
+            }
+        } catch (FirebaseAuthException ex)
+        {
+            
         }
+
     }
 
 }
