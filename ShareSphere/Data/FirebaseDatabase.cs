@@ -21,16 +21,16 @@ namespace ShareSphere.Data
               .Child("gamers")
               .Child(gamer.userId)
               .PutAsync(gamer);
-            await getGamers();
+               await getGamers();
         }
 
-        public async Task<List<Gamer>> getGamers()
+        public async Task<bool> getGamers()
         {
             var gamers = await firebaseClient
               .Child("gamers")
               .OnceAsync<Gamer>();
 
-            return gamers?.Select(item => new Gamer
+            this.gamers =  gamers?.Select(item => new Gamer
             {
                 userId = item.Object.userId,
                 username = item.Object.username,
@@ -39,6 +39,8 @@ namespace ShareSphere.Data
                 games = item.Object.games,
                 joinedAsString = item.Object.joinedAsString,
             }).ToList();
+
+            return this.gamers != null;
         }
 
         public async void updateGamer(string id, Gamer gamer)

@@ -3,7 +3,7 @@
 @inject ShareSphere.Data.FirebaseDatabase firebaseDatabase
 
 <div id="search-div">
-    <input type="text" id="username-input" @bind="@userSearch" @onkeydown="@Enter" class="form-control" placeholder="Search">
+    <input type="text" id="username-input" @bind="@userSearch" @onkeydown="@Enter" @onkeypress="@Enter" class="form-control" placeholder="Search">
 </div>
 
 <div class="scroll-container">
