@@ -3,58 +3,64 @@
 @inject FirebaseDatabase db
 @inject NavigationManager navMan
 
-<div class="profile-info my-2">
-    <div class="row">
-        <div class="col-3 mr-1 py-2">
-            <img src="/images/bot_fill.png" class="rounded-circle profile-info-icon" />
-        </div>
-        <div class="col-9 ml-1">
-            <div class="row username">@gamer.username</div>
-            <div class="row">
-                @if (gamer.platforms.Count > 0)
-                {
-                    @foreach (int i in gamer.platforms)
-                    {
-                        <div class="col-auto platform-label rounded-1 m-1 px-2 py-1">@i</div>
-                    }
-                }
-                else
-                {
-                    <span>Keine Plattform ausgewählt</span>
-                }
+@if(gamer == null){
+    <p>Loading...</p>
+} else
+{
+    <div class="profile-info my-2">
+        <div class="row">
+            <div class="col-3 mr-1 py-2">
+                <img src="/images/bot_fill.png" class="rounded-circle profile-info-icon" />
             </div>
-            <div class="row games">
-                <div class="col">
-                    @if(gamer.games.Count > 0)
+            <div class="col-9 ml-1">
+                <div class="row username">@gamer.username</div>
+                <div class="row">
+                    @if (gamer.platforms.Count > 0)
                     {
-                        @foreach (int i in gamer.games)
+                        @foreach (int i in gamer.platforms)
                         {
-                            <span>/ Game Nr. @i /</span>
+                            <div class="col-auto platform-label rounded-1 m-1 px-2 py-1">@i</div>
                         }
-                    } else
-                    {
-                        <span>Keine Games ausgewählt</span>
                     }
+                    else
+                    {
+                        <span>Keine Plattform ausgewählt</span>
+                    }
+                </div>
+                <div class="row games">
+                    <div class="col">
+                        @if (gamer.games.Count > 0)
+                        {
+                            @foreach (int i in gamer.games)
+                            {
+                                <span>/ Game Nr. @i /</span>
+                            }
+                        }
+                        else
+                        {
+                            <span>Keine Games ausgewählt</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                @gamer.biography
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col">
+                <div id="join-btn-div">
+                    <button id="join-btn" class="gradient-btn btn-block">Join</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            @gamer.biography
-        </div>
+    <div class="profile-posts text-center h-100 align-items-center">
+        <div>No content added yet</div>
     </div>
-    <div class="row my-2">
-        <div class="col">
-            <div id="join-btn-div">
-                <button id="join-btn" class="gradient-btn btn-block">Join</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="profile-posts text-center h-100 align-items-center">
-    <div>No content added yet</div>
-</div>
+}
 
 @code {
     [Parameter]
@@ -67,6 +73,9 @@
         if(gamer == null)
         {
             navMan.NavigateTo("/explore");
+        } else
+        {
+            StateHasChanged();
         }
     }
 
