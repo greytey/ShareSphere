@@ -6,7 +6,6 @@ namespace ShareSphere.Data
 {
     public class FirebaseAuthentication
     {
-        private Gamer currentlyLoggedInUser = null;
 
         private static FirebaseAuthConfig config = new FirebaseAuthConfig {
             ApiKey = "AIzaSyA6PrPGDJNbv0jv_y4jvJPz48tMz0e8Et4",
@@ -23,16 +22,6 @@ namespace ShareSphere.Data
         public FirebaseAuthClient getClient()
         {
             return client;
-        }
-
-        public Gamer getLoggedInUser()
-        {
-            return currentlyLoggedInUser;
-        }
-
-        public void setLoggedInuser(Gamer gamer)
-        {
-            currentlyLoggedInUser = gamer;
         }
     }
 }

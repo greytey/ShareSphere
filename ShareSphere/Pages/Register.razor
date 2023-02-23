@@ -57,7 +57,6 @@
                 if (userCredentials != null)
                 {
                     Gamer gamer = new Gamer(userCredentials.User.Uid, username);
-                    firebaseAuth.setLoggedInuser(gamer);
                     db.addGamer(gamer);
                     navMan.NavigateTo("/forMe");
                 }

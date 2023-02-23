@@ -1,6 +1,7 @@
 ﻿@page "/profile"
 @using ShareSphere.Data
 @inject FirebaseAuthentication firebaseAuth
+@inject FirebaseDatabase db
 
 <div class="profile-info my-2">
     <div class="row">
@@ -68,8 +69,8 @@
 @code {
     Gamer gamer;
 
-    protected override void OnInitialized()
+    protected async override void OnInitialized()
     {
-        gamer = firebaseAuth.getLoggedInUser();
+        gamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
     }
 }
