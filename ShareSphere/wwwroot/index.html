@@ -3,65 +3,107 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-	<title>ShareSphere</title>
-	<base href="/" />
-	<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
-	<link href="css/app.css" rel="stylesheet" />
-	<link href="ShareSphere.styles.css" rel="stylesheet" />
+    <title>ShareSphere</title>
+    <base href="/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="ShareSphere.styles.css" rel="stylesheet" />
 </head>
 
 <body>
 
-	<div class="status-bar-safe-area"></div>
+    <div class="status-bar-safe-area"></div>
 
-	<div id="app">Loading...</div>
+    <div id="app">Loading...</div>
 
-	<div id="blazor-error-ui">
-		An unhandled error has occurred.
-		<a href="" class="reload">Reload</a>
-		<a class="dismiss">🗙</a>
-	</div>
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <!--<script src="_framework/blazor.webassembly.js" autostart="false"></script>-->
+    <script src="_framework/blazor.webview.js" autostart="false"></script>
+    <script>
+        var divUsername = document.getElementById("username-input-div");
+        var divEmail = document.getElementById("email-input-div");
+        var divPassword = document.getElementById("password-input-div");
+        var divRepeatPassword = document.getElementById("repeat-password-input-div");
 
-	<script src="_framework/blazor.webview.js" autostart="false"></script>
-	<script>
-		var divUsername = document.getElementById("username-input-div");
-		var divEmail = document.getElementById("email-input-div");
-		var divPassword = document.getElementById("password-input-div");
-		var divRepeatPassword = document.getElementById("repeat-password-input-div");
+        var inputUsername = document.getElementById("username-input");
+        var inputEmail = document.getElementById("email-input");
+        var inputPassword = document.getElementById("password-input");
+        var inputRepeatPassword = document.getElementById("repeat-password-input");
 
-		var inputUsername = document.getElementById("username-input");
-		var inputEmail = document.getElementById("email-input");
-		var inputPassword = document.getElementById("password-input");
-		var inputRepeatPassword = document.getElementById("repeat-password-input");
+        inputUsername.addEventListener("focus", function () {
+            divUsername.classList.add("input-shadow");
+        });
+        inputUsername.addEventListener("blur", function () {
+            divUsername.classList.remove("input-shadow");
+        });
 
-		inputUsername.addEventListener("focus", function () {
-			divUsername.classList.add("input-shadow");
-		});
-		inputUsername.addEventListener("blur", function () {
-			divUsername.classList.remove("input-shadow");
-		});
+        inputEmail.addEventListener("focus", function () {
+            divEmail.classList.add("input-shadow");
+        });
+        inputEmail.addEventListener("blur", function () {
+            divEmail.classList.remove("input-shadow");
+        });
 
-		inputEmail.addEventListener("focus", function () {
-			divEmail.classList.add("input-shadow");
-		});
-		inputEmail.addEventListener("blur", function () {
-			divEmail.classList.remove("input-shadow");
-		});
+        inputPassword.addEventListener("focus", function () {
+            divPassword.classList.add("input-shadow");
+        });
+        inputPassword.addEventListener("blur", function () {
+            divPassword.classList.remove("input-shadow");
+        });
 
-		inputPassword.addEventListener("focus", function () {
-			divPassword.classList.add("input-shadow");
-		});
-		inputPassword.addEventListener("blur", function () {
-			divPassword.classList.remove("input-shadow");
-		});
+        inputRepeatPassword.addEventListener("focus", function () {
+            divRepeatPassword.classList.add("input-shadow");
+        });
+        inputRepeatPassword.addEventListener("blur", function () {
+            divRepeatPassword.classList.remove("input-shadow");
+        });
 
-		inputRepeatPassword.addEventListener("focus", function () {
-			divRepeatPassword.classList.add("input-shadow");
-		});
-		inputRepeatPassword.addEventListener("blur", function () {
-			divRepeatPassword.classList.remove("input-shadow");
-		});
-	</script>
+        var divAddPost = document.getElementById("add-post-btn-div");
+        var divSettings = document.getElementById("settings-btn-div");
+
+        var btnAddPost = document.getElementById("add-post-btn");
+        var btnSettings = document.getElementById("settings-btn");
+
+        btnAddPost.addEventListener("focus", function () {
+            divAddPost.classList.add("gradient-shadow");
+        });
+        btnAddPost.addEventListener("blur", function () {
+            divAddPost.classList.remove("gradient-shadow");
+        });
+
+        btnSettings.addEventListener("focus", function () {
+            divSettings.classList.add("gradient-shadow");
+        });
+        btnSettings.addEventListener("blur", function () {
+            divSettings.classList.remove("gradient-shadow");
+        });
+
+        var divJoin = document.getElementById("join-btn-div");
+
+        var btnJoin = document.getElementById("join-btn");
+
+        btnJoin.addEventListener("focus", function () {
+            divJoin.classList.add("gradient-shadow");
+        });
+        btnJoin.addEventListener("blur", function () {
+            divJoin.classList.remove("gradient-shadow");
+        });
+
+        var divJoin = document.getElementById("profile-join-btn-div");
+
+        var btnJoin = document.getElementById("profile-join-btn");
+
+        btnJoin.addEventListener("focus", function () {
+            divJoin.classList.add("gradient-shadow");
+        });
+        btnJoin.addEventListener("blur", function () {
+            divJoin.classList.remove("gradient-shadow");
+        });
+    </script>
 
 </body>
 

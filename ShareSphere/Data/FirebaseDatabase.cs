@@ -8,6 +8,7 @@ namespace ShareSphere.Data
     public class FirebaseDatabase
     {
         private FirebaseClient firebaseClient;
+        private List<Gamer> gamers;
 
         public FirebaseDatabase()
         {
@@ -19,16 +20,17 @@ namespace ShareSphere.Data
             await firebaseClient
               .Child("gamers")
               .Child(gamer.userId)
-              .PostAsync(gamer);
+              .PutAsync(gamer);
+               await getGamers();
         }
 
-        public async Task<List<Gamer>> getGamers()
+        public async Task<bool> getGamers()
         {
             var gamers = await firebaseClient
               .Child("gamers")
               .OnceAsync<Gamer>();
 
-            return gamers?.Select(item => new Gamer
+            this.gamers =  gamers?.Select(item => new Gamer
             {
                 userId = item.Object.userId,
                 username = item.Object.username,
@@ -37,22 +39,28 @@ namespace ShareSphere.Data
                 games = item.Object.games,
                 joinedAsString = item.Object.joinedAsString,
             }).ToList();
+
+            return this.gamers != null;
         }
 
-        public async void updateGamer(string id, Gamer gamer)
+        public async void updateGamer(Gamer gamer)
         {
-            await firebaseClient.Child("gamers").Child(gamer.userId).Child(id).PutAsync(gamer);
+            await firebaseClient.Child("gamers").Child(gamer.userId).PutAsync(gamer);
+            await getGamers();
         }
 
         public async void removeGamer(Gamer gamer)
         {
             await firebaseClient.Child("gamers").Child(gamer.userId).DeleteAsync();
+            await getGamers();
         }
 
         public async Task<Gamer> getGamerByUid(string uid)
         {
-            List<Gamer> gamers = await getGamers();
-
+            if(gamers == null)
+            {
+                await getGamers();
+            }
             foreach(Gamer gamer in gamers)
             {
                 if (gamer.userId.Equals(uid))
@@ -65,11 +73,13 @@ namespace ShareSphere.Data
 
         public async Task<Gamer> getUsername(string username)
         {
-            List<Gamer> gamers = await getGamers();
-
+            if (gamers == null)
+            {
+                await getGamers();
+            }
             foreach (Gamer gamer in gamers)
             {
-                if (gamer.userId.Contains(username))
+                if (gamer.username.Contains(username))
                 {
                     return gamer;
                 }

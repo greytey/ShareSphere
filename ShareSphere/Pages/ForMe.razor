@@ -1,4 +1,7 @@
 ﻿@page "/forMe"
+@using ShareSphere.Data;
+@inject FirebaseDatabase db
+@inject FirebaseAuthentication firebaseAuth
 
 <div id="post">
     <div class="row">
@@ -13,7 +16,7 @@
                 <div class="col"></div>
                 <div class="col-auto">
                     <div id="profile-join-btn-div">
-                        <button id="profile-join-btn" class="gradient-btn">Join</button>
+                        <button id="profile-join-btn" class="gradient-btn" onclick="@joinBtnClicked">Join</button>
                     </div>
                 </div>
             </div>
@@ -55,4 +58,17 @@
 
 @code {
 
+    private async void joinBtnClicked(Gamer gamer)
+    {
+        Gamer loggedInGamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
+        if (!loggedInGamer.joins(gamer))
+        {
+            loggedInGamer.addJoins(gamer);
+        }
+        else
+        {
+            loggedInGamer.removeJoins(gamer);
+        }
+        db.updateGamer(loggedInGamer);
+    }
 }

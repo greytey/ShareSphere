@@ -1,8 +1,9 @@
 ﻿@page "/"
 @layout FirstLayout
-@inject ShareSphere.Data.FirebaseAuthentication firebaseAuth
-@inject NavigationManager navMan
 @using ShareSphere.Data
+@inject FirebaseAuthentication firebaseAuth
+@inject FirebaseDatabase db
+@inject NavigationManager navMan
 
 <form id="register-form">
     <h3>Login</h3>
@@ -31,6 +32,16 @@
 @code {
     private string email;
     private string passwort;
+    
+    protected async override void OnInitialized()
+    {
+        User user = firebaseAuth.getClient().User;
+        if(user != null)
+        {
+            Gamer gamer = await db.getGamerByUid(user.Uid);
+            navMan.NavigateTo("/forMe", true);
+        }
+    }
 
     async void loginUser()
     {
@@ -39,7 +50,6 @@
             UserCredential userCredentials = await firebaseAuth.getClient().SignInWithEmailAndPasswordAsync(email, passwort);
             if (userCredentials != null)
             {
-                firebaseAuth.setLoggedInuser(new Gamer(userCredentials.User.Uid, userCredentials.User.Uid));
                 navMan.NavigateTo("/forMe", true);
             }
         } catch (FirebaseAuthException ex)
