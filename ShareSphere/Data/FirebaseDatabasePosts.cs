@@ -47,7 +47,7 @@ namespace ShareSphere.Data
         }
 
         // from https://jonathancrozier.com/blog/how-to-generate-a-random-string-with-c-sharp 
-        public static string GenerateRandomAlphanumericString(int length = 10)
+        public static string GenerateRandomAlphanumericString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
