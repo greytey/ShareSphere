@@ -133,7 +133,8 @@
         {
             StateHasChanged();
         }
-        // get list from firebase
+        posts = await db.getAllPostsFromGamer(gamer);
+        StateHasChanged();
     }
 
     private async void joinBtnClicked()

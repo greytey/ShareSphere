@@ -147,7 +147,7 @@ else
     protected async override void OnInitialized()
     {
         gamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
-        // get list from firebase
+        posts = await db.getAllPostsFromGamer(gamer);
         StateHasChanged();
     }
 
