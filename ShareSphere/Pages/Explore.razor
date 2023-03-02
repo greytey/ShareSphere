@@ -92,10 +92,12 @@
 @code {
     private string userSearch = "";
     private List<Post> posts = new List<Post>();
+    private List<string> gamerNames = new List<string>();
 
     protected async override void OnInitialized()
     {
         posts = await db.getAllPosts();
+        StateHasChanged();
     }
 
     async void search()

@@ -95,7 +95,14 @@ namespace ShareSphere.Data
 
         public async void uploadPost(Gamer gamer, Post post)
         {
-            await firebaseClient.Child("posts").Child(post.id).PutAsync(post);
+            await firebaseClient.Child("posts").Child(post.id).PutAsync(new Post()
+            {
+                gamerId = gamer.userId.ToString(),
+                wps = post.wps,
+                comments = post.comments,
+                id = post.id,
+                videoUrl = post.videoUrl
+            });
             gamer.addPost(post);
             updateGamer(gamer);
 
@@ -104,13 +111,14 @@ namespace ShareSphere.Data
         public async Task<List<Post>> getAllPosts()
         {
             var posts = await firebaseClient.Child("posts").OnceAsync<Post>();
-            return posts?.Select(x => new Post()
+            return (List<Post>)(posts?.Select(async (x) => new Post()
             {
                 gamerId = x.Object.gamerId,
+                gamer = await getGamerByUid(x.Object.gamerId),
                 id = x.Key,
                 wps = x.Object.wps,
                 videoUrl = x.Object.videoUrl
-            }).ToList();
+            }));
         }
 
         public async Task<List<Post>> getAllPostsFromGamer(Gamer gamer)
@@ -120,13 +128,14 @@ namespace ShareSphere.Data
             foreach (var postId in postIds)
             {
                 var singlePost = await firebaseClient.Child("posts").Child(postId.Object).OnceAsync<Post>();
-                posts.AddRange(singlePost?.Select(x => new Post()
+                posts.AddRange((IEnumerable<Post>)(singlePost?.Select(async (x) => new Post()
                 {
                     id = postId.Object,
                     gamerId = x.Object.gamerId,
+                    gamer = await getGamerByUid((x.Object.gamerId)),
                     wps = x.Object.wps,
                     videoUrl = x.Object.videoUrl
-                }).ToList());
+                }).ToList())); ;
 
             }
             return posts;

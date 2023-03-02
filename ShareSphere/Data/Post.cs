@@ -10,6 +10,7 @@ namespace ShareSphere.Data
     {
         public string id { get; set; }
         public string gamerId { get; set; }
+        public Gamer gamer { get; set; } = null;
         public string videoUrl { get; set; }
         public int wps { get; set; }
         public List<Comment> comments { get; set; }
@@ -19,6 +20,7 @@ namespace ShareSphere.Data
         public Post(Gamer gamer, string videoUrl, string id)
         {
             this.gamerId = gamer.userId;
+            this.gamer = gamer;
             this.videoUrl = videoUrl;
             wps = 0;
             comments = new List<Comment>();
