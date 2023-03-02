@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace ShareSphere.Data
 {
-    public class FirebaseDatabase
+    public class FirebaseDatabaseGamer
     {
         private FirebaseClient firebaseClient;
         private List<Gamer> gamers;
 
-        public FirebaseDatabase()
+        public FirebaseDatabaseGamer()
         {
             firebaseClient = new FirebaseClient("https://sharesphere-b9b02-default-rtdb.europe-west1.firebasedatabase.app/");
         }
