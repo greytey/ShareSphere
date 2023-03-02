@@ -34,7 +34,7 @@
                         <img src="/images/bot_fill.png" id="profile-image" class="img-icon" />
                     </div>
                     <div id="profile-name-div" class="col-auto">
-                        <p id="profile-name">@db.getGamerByUid(iterate.gamerId))</p>
+                        <p id="profile-name">@db.getGamerByUid(iterate.gamerId)</p>
                     </div>
                     <div class="col"></div>
                     <div class="col-auto">
@@ -96,6 +96,7 @@
     protected async override void OnInitialized()
     {
         posts = await db.getAllPosts();
+        StateHasChanged();
     }
 
     async void search()
