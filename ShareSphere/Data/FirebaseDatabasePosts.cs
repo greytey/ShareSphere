@@ -13,7 +13,7 @@ namespace ShareSphere.Data
         public FirebaseDatabasePosts()
         {
             firebaseClient = new FirebaseClient("https://sharesphere-b9b02-default-rtdb.europe-west1.firebasedatabase.app/");
-            firebaseStorage = new FirebaseStorage("gs://sharesphere-b9b02.appspot.com");
+            firebaseStorage = new FirebaseStorage("sharesphere-b9b02.appspot.com");
         }
 
         public async void uploadPost(Gamer gamer, Post post)
@@ -42,7 +42,7 @@ namespace ShareSphere.Data
         public async Task<string> uploadPostToStorage(FileResult video)
         {
             var videoToUpload = await video.OpenReadAsync();
-            return await firebaseStorage.Child("videos").PutAsync(videoToUpload);
+            return await firebaseStorage.Child(video.FileName).PutAsync(videoToUpload);
         }
     }
 }
