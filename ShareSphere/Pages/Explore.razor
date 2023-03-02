@@ -1,6 +1,6 @@
 ﻿@page "/explore"
 @inject NavigationManager navMan
-@inject ShareSphere.Data.FirebaseDatabase firebaseDatabase
+@inject ShareSphere.Data.FirebaseDatabaseGamer firebaseDatabase
 
 <div id="search-div">
     <input type="text" id="username-input" @bind="@userSearch" @onkeyup="@Enter" class="form-control" placeholder="Search">
