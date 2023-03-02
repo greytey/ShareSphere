@@ -133,8 +133,12 @@ a:active {
     margin: 10px;
 }
 
+#infinity-scroll-end{
+    text-align: center;
+}
+
 /* post styles */
-#post-comment{
+#post-comment {
     font-size: 12px;
 }
 

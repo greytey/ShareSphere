@@ -26,7 +26,8 @@ namespace ShareSphere.Data
         {
             List<Post> posts = new List<Post>();
             var postIds = await firebaseClient.Child("gamer").Child(gamer.userId).Child("posts").OnceAsListAsync<string>();
-            foreach (var postId in postIds) {
+            foreach (var postId in postIds)
+            {
                 var singlePost = await firebaseClient.Child("posts").Child(postId.Object).OnceAsync<Post>();
                 posts.AddRange(singlePost?.Select(x => new Post()
                 {
@@ -43,6 +44,16 @@ namespace ShareSphere.Data
         {
             var videoToUpload = await video.OpenReadAsync();
             return await firebaseStorage.Child(video.FileName).PutAsync(videoToUpload);
+        }
+
+        // from https://jonathancrozier.com/blog/how-to-generate-a-random-string-with-c-sharp 
+        public static string GenerateRandomAlphanumericString(int length = 10)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+            var random = new Random();
+            var randomString = new string(Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray());
+            return randomString;
         }
     }
 }
