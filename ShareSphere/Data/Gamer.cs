@@ -9,8 +9,6 @@ namespace ShareSphere.Data
 {
     public class Gamer
     {
-
-
         public string userId { get; set; }
         public string username { get; set; }
         public string biography { get; set; }
