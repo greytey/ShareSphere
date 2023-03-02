@@ -12,10 +12,10 @@ namespace ShareSphere.Data
             firebaseClient = new FirebaseClient("https://sharesphere-b9b02-default-rtdb.europe-west1.firebasedatabase.app/");
         }
 
-        public void uploadPost(Gamer gamer /**, Post post */)
+        public async void uploadPost(Gamer gamer, Post post)
         {
-            /**await firebaseClient.Child("posts").Child(post.id).PutAsync(post); 
-             await firebaseClient.Child("gamer").Child(gamer.id).Child("posts").PutAsync(post.id);*/
+            await firebaseClient.Child("posts").Child(post.id).PutAsync(post);
+            await firebaseClient.Child("gamer").Child(gamer.userId).Child("posts").PutAsync(post.id);
         }
     }
 }
