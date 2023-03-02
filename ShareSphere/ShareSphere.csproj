@@ -50,7 +50,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Data\" />
+      <PackageReference Include="FirebaseAuthentication.net" Version="4.0.1" />
+      <PackageReference Include="FirebaseDatabase.net" Version="4.1.0" />
     </ItemGroup>
 
     <ItemGroup>
