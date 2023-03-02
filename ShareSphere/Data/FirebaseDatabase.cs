@@ -101,6 +101,18 @@ namespace ShareSphere.Data
 
         }
 
+        public async Task<List<Post>> getAllPosts()
+        {
+            var posts = await firebaseClient.Child("posts").OnceAsync<Post>();
+            return posts?.Select(x => new Post()
+            {
+                gamerId = x.Object.gamerId,
+                id = x.Key,
+                wps = x.Object.wps,
+                videoUrl = x.Object.videoUrl
+            }).ToList();
+        }
+
         public async Task<List<Post>> getAllPostsFromGamer(Gamer gamer)
         {
             List<Post> posts = new List<Post>();
@@ -111,6 +123,7 @@ namespace ShareSphere.Data
                 posts.AddRange(singlePost?.Select(x => new Post()
                 {
                     id = postId.Object,
+                    gamerId = x.Object.gamerId,
                     wps = x.Object.wps,
                     videoUrl = x.Object.videoUrl
                 }).ToList());
