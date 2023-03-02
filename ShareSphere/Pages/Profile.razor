@@ -1,7 +1,8 @@
 ﻿@page "/profile"
 @using ShareSphere.Data
 @inject FirebaseAuthentication firebaseAuth
-@inject FirebaseDatabaseGamer db
+@inject FirebaseDatabaseGamer gamerDb
+@inject FirebaseDatabasePosts postDb
 @inject NavigationManager navMan
 
 
@@ -67,6 +68,11 @@
                     <button id="settings-btn" class="gradient-btn w-100" onclick="@signOut">Sign out</button>
                 </div>
             </div>
+            <div class="col">
+                <div>
+                    <button id="settings-btn" class="gradient-btn w-100" onclick="@upload">+</button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="profile-posts text-center h-100 align-items-center">
@@ -80,7 +86,7 @@
 
     protected async override void OnInitialized()
     {
-        gamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
+        gamer = await gamerDb.getGamerByUid(firebaseAuth.getClient().User.Uid);
         StateHasChanged();
     }
 
@@ -88,5 +94,18 @@
     {
         firebaseAuth.getClient().SignOut();
         navMan.NavigateTo("/");
+    }
+
+    private async void upload()
+    {
+        FileResult video = await MediaPicker.Default.PickVideoAsync();
+
+        if(video != null)
+        {
+            await postDb.uploadPostToStorage(video);
+        } else
+        {
+            //error
+        }
     }
 }
