@@ -1,6 +1,8 @@
 ﻿@page "/explore"
+@using ShareSphere.Data;
 @inject NavigationManager navMan
-@inject ShareSphere.Data.FirebaseDatabaseGamer firebaseDatabase
+@inject FirebaseDatabaseGamer db
+@inject FirebaseAuthentication firebaseAuth
 
 <div id="search-div">
     <input type="text" id="username-input" @bind="@userSearch" @onkeyup="@Enter" class="form-control" placeholder="Search">
@@ -22,8 +24,79 @@
     </div>
 </div>
 
+@foreach (Post iterate in posts)
+{
+    <div id="post">
+        <div class="row">
+            <div id="post-header-div" class="col">
+                <div class="row">
+                    <div id="profile-image-div" class="col-auto">
+                        <img src="/images/bot_fill.png" id="profile-image" class="img-icon" />
+                    </div>
+                    <div id="profile-name-div" class="col-auto">
+                        <p id="profile-name">@iterate.gamer.username</p>
+                    </div>
+                    <div class="col"></div>
+                    <div class="col-auto">
+                        <div id="profile-join-btn-div">
+                            <button id="profile-join-btn" class="gradient-btn" @onclick="() => joinBtnClicked(iterate.gamer)">Join</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="post-video-div" class="col">
+                <video id="post-video" autoplay muted loop class="w-100">
+                    <source src="/videos/Demo_Video.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+        <div class="row">
+            <div id="post-interact-div" class="col">
+                <div class="row">
+                    <div id="wp-image-btn-div" class="col-auto">
+                        <button id="wp-image-btn" class="interact-btn" @onclick="() => wpBtnClicked(iterate)">WP</button>
+                        <small>@iterate.wps</small>
+                    </div>
+                    <div id="comment-image-btn-div" class="col-auto">
+                        <button id="comment-image-btn" class="interact-btn" @onclick="() => commentBtnClicked(iterate)">
+                            <i class="bi bi-chat-square-text-fill" />
+                        </button>
+                    </div>
+                    <div class="col"></div>
+                    <div id="bookmark-image-btn-div" class="col-auto">
+                        <button id="bookmark-image-btn" class="interact-btn" @onclick="() => bookmarkBtnClicked(iterate, iterate.gamer)">
+                            <i class="bi bi-bookmark-fill" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--
+                <div class="row">
+                <div id="post-comment-div" class="col">
+                    <p id="post-comment">Quicktey: Test Post for layout</p>
+                </div>
+            </div>
+        -->
+    </div>
+}
+
+<p id="infinity-scroll-end">
+    Seemes like you have spent quite some time on our app.<br />
+    <i class="bi bi-chat-heart-fill"></i><br />
+    Thank you!
+</p>
+
 @code {
     private string userSearch = "";
+    private List<Post> posts = new List<Post>();
+
+    protected async override void OnInitialized()
+    {
+        // get list from firebase
+    }
 
     async void search()
     {
@@ -40,5 +113,34 @@
         {
             search();
         }
+    }
+
+    private async void joinBtnClicked(Gamer gamer)
+    {
+        Gamer loggedInGamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
+        if (!loggedInGamer.joins(gamer))
+        {
+            loggedInGamer.addJoins(gamer);
+        }
+        else
+        {
+            loggedInGamer.removeJoins(gamer);
+        }
+        db.updateGamer(loggedInGamer);
+    }
+
+    private async void wpBtnClicked(Post post)
+    {
+        // upload into firebase
+    }
+
+    private void commentBtnClicked(Post post)
+    {
+        // comment pop-up
+    }
+
+    private async void bookmarkBtnClicked(Post post, Gamer gamer)
+    {
+        // save in gamer
     }
 }
