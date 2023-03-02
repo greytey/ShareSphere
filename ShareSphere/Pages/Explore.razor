@@ -95,7 +95,7 @@
 
     protected async override void OnInitialized()
     {
-        // get list from firebase
+        posts = await db.getAllPosts();
     }
 
     async void search()
