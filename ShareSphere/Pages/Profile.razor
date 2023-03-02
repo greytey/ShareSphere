@@ -1,8 +1,7 @@
 ﻿@page "/profile"
 @using ShareSphere.Data
 @inject FirebaseAuthentication firebaseAuth
-@inject FirebaseDatabaseGamer gamerDb
-@inject FirebaseDatabasePosts postDb
+@inject FirebaseDatabase db
 @inject NavigationManager navMan
 
 
@@ -89,7 +88,7 @@ else
                             <img src="/images/bot_fill.png" id="profile-image" class="img-icon" />
                         </div>
                         <div id="profile-name-div" class="col-auto">
-                            <p id="profile-name">@iterate.gamer.username</p>
+                            <p id="profile-name">@gamer.username</p>
                         </div>
                         <div class="col"></div>
                         <div class="col-auto">
@@ -147,7 +146,7 @@ else
 
     protected async override void OnInitialized()
     {
-        gamer = await gamerDb.getGamerByUid(firebaseAuth.getClient().User.Uid);
+        gamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
         // get list from firebase
         StateHasChanged();
     }
@@ -164,8 +163,8 @@ else
 
         if (video != null)
         {
-            string videourl = await postDb.uploadPostToStorage(video);
-            postDb.uploadPost(gamer, new Post(gamer, videourl, FirebaseDatabasePosts.generatePostId(10)));
+            string videourl = await db.uploadPostToStorage(video);
+            db.uploadPost(gamer, new Post(gamer, videourl, FirebaseDatabase.generatePostId(10)));
         }
         else
         {

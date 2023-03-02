@@ -20,8 +20,7 @@ public static class MauiProgram
 		#endif
 		
 		builder.Services.AddSingleton<FirebaseAuthentication>();
-        builder.Services.AddSingleton<FirebaseDatabaseGamer>();
-		builder.Services.AddSingleton<FirebaseDatabasePosts>();
+        builder.Services.AddSingleton<FirebaseDatabase>();
 
 
         return builder.Build();
