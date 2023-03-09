@@ -34,12 +34,12 @@
                         <img src="/images/bot_fill.png" id="profile-image" class="img-icon" />
                     </div>
                     <div id="profile-name-div" class="col-auto">
-                        <p id="profile-name">@db.getGamerByUid(iterate.gamerId)</p>
+                        <p id="profile-name">@iterate.gamer.username</p>
                     </div>
                     <div class="col"></div>
                     <div class="col-auto">
                         <div id="profile-join-btn-div">
-                            <button id="profile-join-btn" class="gradient-btn" @onclick="() => joinBtnClicked(iterate.gamerId)">Join</button>
+                            <button id="profile-join-btn" class="gradient-btn" @onclick="() => joinBtnClicked(iterate.userId)">Join</button>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="col"></div>
                     <div id="bookmark-image-btn-div" class="col-auto">
-                        <button id="bookmark-image-btn" class="interact-btn" @onclick="() => bookmarkBtnClicked(iterate, iterate.gamerId)">
+                        <button id="bookmark-image-btn" class="interact-btn" @onclick="() => bookmarkBtnClicked(iterate, iterate.userId)">
                             <i class="bi bi-bookmark-fill" />
                         </button>
                     </div>
@@ -134,7 +134,8 @@
 
     private async void wpBtnClicked(Post post)
     {
-        // upload into firebase
+        post.wps++;
+        db.updatePost(post);
     }
 
     private void commentBtnClicked(Post post)

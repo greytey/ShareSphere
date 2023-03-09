@@ -167,7 +167,8 @@
 
     private async void wpBtnClicked(Post post)
     {
-        // upload into firebase
+        post.wps++;
+        db.updatePost(post);
     }
 
     private void commentBtnClicked(Post post)

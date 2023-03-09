@@ -71,12 +71,12 @@ namespace ShareSphere.Data
 
         public void addPost(Post post)
         {
-            postIds.Add(post.id);
+            postIds.Add(post.postId);
         }
 
         public void removePost(Post post)
         {
-            postIds.Remove(post.id);
+            postIds.Remove(post.postId);
         }
     }
 }

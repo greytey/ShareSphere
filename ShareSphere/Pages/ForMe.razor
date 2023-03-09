@@ -13,12 +13,12 @@
                         <img src="/images/bot_fill.png" id="profile-image" class="img-icon" />
                     </div>
                     <div id="profile-name-div" class="col-auto">
-                        <p id="profile-name">@db.getGamerByUid(iterate.gamerId)</p>
+                        <p id="profile-name">@iterate.gamer.username</p>
                     </div>
                     <div class="col"></div>
                     <div class="col-auto">
                         <div id="profile-join-btn-div">
-                            <button id="profile-join-btn" class="gradient-btn" @onclick="() => joinBtnClicked(iterate.gamerId)">Join</button>
+                            <button id="profile-join-btn" class="gradient-btn" @onclick="() => joinBtnClicked(iterate.userId)">Join</button>
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                     </div>
                     <div class="col"></div>
                     <div id="bookmark-image-btn-div" class="col-auto">
-                        <button id="bookmark-image-btn" class="interact-btn" @onclick="() => bookmarkBtnClicked(iterate, iterate.gamerId)">
+                        <button id="bookmark-image-btn" class="interact-btn" @onclick="() => bookmarkBtnClicked(iterate, iterate.userId)">
                             <i class="bi bi-bookmark-fill" />
                         </button>
                     </div>
@@ -69,11 +69,22 @@
 </p>
 
 @code {
+    private Gamer user;
     private List<Post> posts = new List<Post>();
+    private List<Gamer> joined = new List<Gamer>();
 
     protected async override void OnInitialized()
     {
-        // get list from firebase
+        user = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
+        foreach (string iterate in user.joinedAsString)
+        {
+            joined.Add(await db.getGamerByUsername(iterate));
+        }
+        foreach (Gamer iterate in joined)
+        {
+            posts.AddRange(await db.getAllPostsFromGamer(iterate));
+        }
+        StateHasChanged();
     }
 
     private async void joinBtnClicked(string gamerId)
@@ -93,7 +104,8 @@
 
     private async void wpBtnClicked(Post post)
     {
-        // upload into firebase
+        post.wps++;
+        db.updatePost(post);
     }
 
     private void commentBtnClicked(Post post)

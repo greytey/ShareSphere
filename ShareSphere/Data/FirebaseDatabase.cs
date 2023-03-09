@@ -12,6 +12,7 @@ namespace ShareSphere.Data
         private FirebaseClient firebaseClient;
         private FirebaseStorage firebaseStorage;
         private List<Gamer> gamers;
+        private List<Post> postsList;
 
         public FirebaseDatabase()
         {
@@ -26,7 +27,7 @@ namespace ShareSphere.Data
               .Child("gamers")
               .Child(gamer.userId)
               .PutAsync(gamer);
-               await getGamers();
+            await getGamers();
         }
 
         public async Task<bool> getGamers()
@@ -35,7 +36,7 @@ namespace ShareSphere.Data
               .Child("gamers")
               .OnceAsync<Gamer>();
 
-            this.gamers =  gamers?.Select(item => new Gamer
+            this.gamers = gamers?.Select(item => new Gamer
             {
                 userId = item.Object.userId,
                 username = item.Object.username,
@@ -43,6 +44,7 @@ namespace ShareSphere.Data
                 platforms = item.Object.platforms,
                 games = item.Object.games,
                 joinedAsString = item.Object.joinedAsString,
+                postIds = item.Object.postIds,
             }).ToList();
 
             return this.gamers != null;
@@ -60,20 +62,14 @@ namespace ShareSphere.Data
             await getGamers();
         }
 
-        public async Task<Gamer> getGamerByUid(string uid)
+        public async Task<Gamer> getGamerByUid(string userId)
         {
-            if(gamers == null)
-            {
-                await getGamers();
-            }
-            foreach(Gamer gamer in gamers)
-            {
-                if (gamer.userId.Equals(uid))
-                {
-                    return gamer;
-                }
-            }
-            return null;
+            Gamer gamer = await firebaseClient
+                .Child("gamers")
+                .Child(userId)
+                .OnceSingleAsync<Gamer>();
+
+            return gamer;
         }
 
         public async Task<Gamer> getGamerByUsername(string username)
@@ -95,56 +91,80 @@ namespace ShareSphere.Data
 
         public async void uploadPost(Gamer gamer, Post post)
         {
-            await firebaseClient.Child("posts").Child(post.id).PutAsync(new Post()
+            await firebaseClient.Child("posts").Child(post.postId).PutAsync(new Post()
             {
-                gamerId = gamer.userId.ToString(),
+                postId = post.postId,
+                userId = gamer.userId.ToString(),
                 wps = post.wps,
                 comments = post.comments,
-                id = post.id,
                 videoUrl = post.videoUrl
             });
             gamer.addPost(post);
             updateGamer(gamer);
-
         }
 
         public async Task<List<Post>> getAllPosts()
         {
-            var posts = await firebaseClient.Child("posts").OnceAsync<Post>();
-            return (List<Post>)(posts?.Select(async (x) => new Post()
+            var posts = await firebaseClient
+              .Child("posts")
+              .OnceAsync<Post>();
+
+            postsList = posts?.Select(item => new Post
             {
-                gamerId = x.Object.gamerId,
-                gamer = await getGamerByUid(x.Object.gamerId),
-                id = x.Key,
-                wps = x.Object.wps,
-                videoUrl = x.Object.videoUrl
-            }));
+                postId = item.Key,
+                userId = item.Object.userId,
+                wps = item.Object.wps,
+                videoUrl = item.Object.videoUrl,
+                comments = item.Object.comments
+            }).ToList();
+
+            foreach (Post iterate in postsList)
+            {
+                iterate.gamer = await getGamerByUid(iterate.userId);
+            }
+            return postsList;
         }
 
         public async Task<List<Post>> getAllPostsFromGamer(Gamer gamer)
         {
-            List<Post> posts = new List<Post>();
-            var postIds = await firebaseClient.Child("gamer").Child(gamer.userId).Child("posts").OnceAsListAsync<string>();
-            foreach (var postId in postIds)
-            {
-                var singlePost = await firebaseClient.Child("posts").Child(postId.Object).OnceAsync<Post>();
-                posts.AddRange((IEnumerable<Post>)(singlePost?.Select(async (x) => new Post()
-                {
-                    id = postId.Object,
-                    gamerId = x.Object.gamerId,
-                    gamer = await getGamerByUid((x.Object.gamerId)),
-                    wps = x.Object.wps,
-                    videoUrl = x.Object.videoUrl
-                }).ToList())); ;
+            List<Post> postsList = new List<Post>();
 
+            foreach (string iterate in gamer.postIds)
+            {
+                Post post = await firebaseClient
+                .Child("posts")
+                .Child(iterate)
+                .OnceSingleAsync<Post>();
+
+                post.gamer = await getGamerByUid(post.userId);
+                postsList.Add(post);
             }
-            return posts;
+
+            return postsList;
+        }
+
+        public async void updatePost(Post post)
+        {
+            await firebaseClient.Child("posts").Child(post.postId).PutAsync(post);
+            await getAllPosts();
+        }
+
+        public async void deletePost(Post post)
+        {
+            await firebaseClient.Child("posts").Child(post.postId).DeleteAsync();
+            //await deletePostFromStorage();
+            await getAllPosts();
         }
 
         public async Task<string> uploadPostToStorage(FileResult video)
         {
             var videoToUpload = await video.OpenReadAsync();
             return await firebaseStorage.Child(video.FileName).PutAsync(videoToUpload);
+        }
+
+        public async Task deletePostFromStorage(string videoFileName)
+        {
+            await firebaseStorage.Child(videoFileName).DeleteAsync();
         }
 
         // from https://jonathancrozier.com/blog/how-to-generate-a-random-string-with-c-sharp 

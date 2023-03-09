@@ -93,7 +93,7 @@ else
                         <div class="col"></div>
                         <div class="col-auto">
                             <div id="profile-join-btn-div">
-                                <button id="profile-join-btn" class="gradient-btn" @onclick="() => deletePostBtnClicked(iterate)">Join</button>
+                                <button id="profile-join-btn" class="gradient-btn" @onclick="() => deletePostBtnClicked(iterate)">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -128,7 +128,7 @@ else
                 </div>
             </div>
             <!--
-                    <div class="row">
+                <div class="row">
                     <div id="post-comment-div" class="col">
                         <p id="post-comment">Quicktey: Test Post for layout</p>
                     </div>
@@ -163,8 +163,9 @@ else
 
         if (video != null)
         {
-            string videourl = await db.uploadPostToStorage(video);
-            db.uploadPost(gamer, new Post(gamer, videourl, FirebaseDatabase.generatePostId(10)));
+            string videoUrl = await db.uploadPostToStorage(video);
+            db.uploadPost(gamer, new Post(FirebaseDatabase.generatePostId(10), gamer, videoUrl));
+            db.updateGamer(gamer);
         }
         else
         {
@@ -174,12 +175,17 @@ else
 
     private async void deletePostBtnClicked(Post post)
     {
-        // delete post
+        gamer.removePost(post);
+        db.updateGamer(gamer);
+        db.deletePost(post);
+        posts.Remove(post);
+        StateHasChanged();
     }
 
     private async void wpBtnClicked(Post post)
     {
-        // upload into firebase
+        post.wps++;
+        db.updatePost(post);
     }
 
     private void commentBtnClicked(Post post)
