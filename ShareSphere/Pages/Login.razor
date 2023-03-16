@@ -24,19 +24,21 @@
             <button id="register-btn" class="gradient-btn w-100" onclick="@loginUser">Login</button>
         </div>
     </div>
-    <div id="switch-link-div" class="form-group">
-        <a href="/register">Go to registration</a>
+    <div class="form-group">
+        <div id="switch-link-div" class="form-group">
+            <a href="/register">Go to registration</a>
+        </div>
     </div>
 </form>
 
 @code {
     private string email;
     private string passwort;
-    
+
     protected async override void OnInitialized()
     {
         User user = firebaseAuth.getClient().User;
-        if(user != null)
+        if (user != null)
         {
             Gamer gamer = await db.getGamerByUid(user.Uid);
             navMan.NavigateTo("/forMe", true);
@@ -52,9 +54,10 @@
             {
                 navMan.NavigateTo("/forMe", true);
             }
-        } catch (FirebaseAuthException ex)
+        }
+        catch (FirebaseAuthException ex)
         {
-            
+
         }
 
     }
