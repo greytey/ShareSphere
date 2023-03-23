@@ -96,8 +96,11 @@ namespace ShareSphere.Data
                 wps = post.wps,
                 comments = post.comments,
                 videoUrl = post.videoUrl,
-                filename = post.filename
-            });
+                filename = post.filename,
+                views = post.views,
+                date = post.date,
+                game= post.game,
+            }) ;
             gamer.addPost(post);
             await updateGamer(gamer);
         }

@@ -72,13 +72,14 @@ else
         </div>
     </div>
 
-    @if(posts.Count > 0)
+    @if (posts.Count > 0)
     {
         @foreach (Post iterate in posts)
         {
-            <PostComponent post="@iterate" isDelete="@isDelete"/>
-            }
-    } else
+            <PostComponent post="@iterate" isDelete="@isDelete" />
+        }
+    }
+    else
     {
         <div id="no-content-added" class="profile-posts text-center h-100 align-items-center">
             <div>No content added yet</div>
