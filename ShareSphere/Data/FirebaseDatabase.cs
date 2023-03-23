@@ -1,8 +1,5 @@
-﻿using System;
-using Firebase.Database;
+﻿using Firebase.Database;
 using Firebase.Database.Query;
-using Firebase.Storage;
-using System.Threading.Tasks;
 using Firebase.Storage;
 
 namespace ShareSphere.Data
