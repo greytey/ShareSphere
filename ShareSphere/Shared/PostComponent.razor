@@ -1,0 +1,116 @@
+﻿@using ShareSphere.Data
+@inject FirebaseDatabase db
+@inject FirebaseAuthentication firebaseAuth
+
+<div id="post">
+    <div class="row">
+        <div id="post-header-div" class="col">
+            <div class="row">
+                <div id="profile-image-div" class="col-auto">
+                    <img src="/images/bot_fill.png" id="profile-image" class="img-icon" />
+                </div>
+                <div id="profile-name-div" class="col-auto">
+                    <p id="profile-name">@post.gamer.username</p>
+                </div>
+                <div class="col"></div>
+                <div class="col-auto">
+                    <div id="profile-join-btn-div">
+                        <button id="profile-join-btn" class="gradient-btn" @onclick="() => joinBtnClicked()">Join</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="post-video-div" class="col">
+            <video id="post-video" controls autoplay muted loop class="w-100">
+                <source src="@post.videoUrl" type="video/mp4">
+            </video>
+        </div>
+    </div>
+    <div class="row">
+        <div id="post-interact-div" class="col">
+            <div class="row">
+                <div id="wp-image-btn-div" class="col-auto">
+                    <button id="wp-image-btn" class="interact-btn" @onclick="() => wpBtnClicked()">WP</button>
+                    <small class="post-small">@post.wps</small>
+                </div>
+                <div id="comment-image-btn-div" class="col-auto">
+                    <button id="comment-image-btn" class="interact-btn" @onclick="() => commentBtnClicked()">
+                        <i class="bi bi-chat-square-text-fill" />
+                    </button>
+                </div>
+                <div id="bookmark-image-btn-div" class="col">
+                    <button id="bookmark-image-btn" class="interact-btn" @onclick="() => bookmarkBtnClicked()">
+                        <i class="bi bi-bookmark-fill" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <small class="post-small"></small>
+        </div>
+        <div class="col">
+            <small class="post-small"></small>
+        </div>
+    </div>
+    <!--
+        <div class="row">
+            <div id="post-comment-div" class="col">
+                <p id="post-comment">Quicktey: Test Post for layout</p>
+            </div>
+        </div>
+    -->
+</div>
+
+@code {
+    [Parameter]
+    public Post post { get; set; }
+
+    public async void joinBtnClicked()
+    {
+        Gamer joinedGamer = await db.getGamerByUid(post.userId);
+        Gamer loggedInGamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
+        if (loggedInGamer.joins(joinedGamer))
+        {
+            loggedInGamer.addJoins(joinedGamer);
+        }
+        else
+        {
+            loggedInGamer.removeJoins(joinedGamer);
+        }
+        db.updateGamer(loggedInGamer);
+    }
+
+    public async void wpBtnClicked()
+    {
+        Gamer loggedInGamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
+        if (loggedInGamer.wp(post))
+        {
+            post.wps++;
+            loggedInGamer.addWP(post);
+
+        }
+        else
+        {
+            post.wps--;
+            loggedInGamer.removeWP(post);
+        }
+        db.updatePost(post);
+        db.updateGamer(loggedInGamer);
+        StateHasChanged();
+    }
+
+    public async void commentBtnClicked()
+    {
+        //comment pop up
+    }
+
+    public async void bookmarkBtnClicked()
+    {
+        //save to list
+    }
+
+}
