@@ -160,7 +160,7 @@
     private async void joinBtnClicked(Gamer gamer)
     {
         Gamer loggedInGamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
-        if (!loggedInGamer.joins(gamer))
+        if (loggedInGamer.joins(gamer))
         {
             loggedInGamer.addJoins(gamer);
         }
@@ -173,8 +173,20 @@
 
     private async void wpBtnClicked(Post post)
     {
-        post.wps++;
+        Gamer loggedInGamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
+        if (loggedInGamer.wp(post))
+        {
+            post.wps++;
+            loggedInGamer.addWP(post);
+
+        } else
+        {
+            post.wps--;
+            loggedInGamer.removeWP(post);
+        }
         db.updatePost(post);
+        db.updateGamer(loggedInGamer);
+        StateHasChanged();
     }
 
     private void commentBtnClicked(Post post)
