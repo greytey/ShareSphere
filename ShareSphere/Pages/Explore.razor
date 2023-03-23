@@ -26,7 +26,7 @@
 
 @foreach (Post iterate in posts)
 {
-    <PostComponent post="@iterate" />
+    <PostComponent post="@iterate" isDelete="@isDelete" />
 
 }
 
@@ -40,6 +40,7 @@
     private string userSearch = "";
     private List<Post> posts = new List<Post>();
     private List<string> gamerNames = new List<string>();
+    private bool isDelete = false;
 
     protected async override void OnInitialized()
     {

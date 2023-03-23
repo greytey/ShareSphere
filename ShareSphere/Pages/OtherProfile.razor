@@ -62,7 +62,7 @@
     {
         @foreach (Post iterate in posts)
         {
-            <PostComponent post="@iterate" />
+            <PostComponent post="@iterate" isDelete="@isDelete" />
 
         }
     } else
@@ -80,6 +80,8 @@
     public string potentialUser { get; set; }
     public Gamer gamer;
     private List<Post> posts = new List<Post>();
+    private bool isDelete = false;
+
 
     protected async override void OnInitialized()
     {

@@ -5,7 +5,7 @@
 
 @foreach (Post iterate in posts)
 {
-    <PostComponent post="@iterate" />
+    <PostComponent post="@iterate" isDelete ="@isDelete" />
 }
 
 <p id="infinity-scroll-end">
@@ -18,6 +18,8 @@
     private Gamer user;
     private List<Post> posts = new List<Post>();
     private List<Gamer> joined = new List<Gamer>();
+    private bool isDelete = false;
+
 
     protected async override void OnInitialized()
     {
