@@ -13,11 +13,12 @@ namespace ShareSphere.Data
         public Gamer gamer { get; set; }
         public string videoUrl { get; set; }
         public int wps { get; set; }
+        public string filename { get; set; }
         public List<Comment> comments { get; set; }
 
         public Post() { }
 
-        public Post(string postId, Gamer gamer, string videoUrl)
+        public Post(string postId, Gamer gamer, string videoUrl, string filename)
         {
             this.postId = postId;
             this.userId = gamer.userId;
@@ -25,6 +26,7 @@ namespace ShareSphere.Data
             this.videoUrl = videoUrl;
             wps = 0;
             this.comments = new List<Comment>();
+            this.filename = filename;
         }
 
         public void addWp()

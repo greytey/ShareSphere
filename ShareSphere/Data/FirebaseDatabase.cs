@@ -47,7 +47,7 @@ namespace ShareSphere.Data
             return this.gamers != null;
         }
 
-        public async void updateGamer(Gamer gamer)
+        public async Task updateGamer(Gamer gamer)
         {
             await firebaseClient.Child("gamers").Child(gamer.userId).PutAsync(gamer);
             await getGamers();
@@ -86,7 +86,7 @@ namespace ShareSphere.Data
         }
 
 
-        public async void uploadPost(Gamer gamer, Post post)
+        public async Task uploadPost(Gamer gamer, Post post)
         {
             await firebaseClient.Child("posts").Child(post.postId).PutAsync(new Post()
             {
@@ -94,10 +94,11 @@ namespace ShareSphere.Data
                 userId = gamer.userId.ToString(),
                 wps = post.wps,
                 comments = post.comments,
-                videoUrl = post.videoUrl
+                videoUrl = post.videoUrl,
+                filename = post.filename
             });
             gamer.addPost(post);
-            updateGamer(gamer);
+            await updateGamer(gamer);
         }
 
         public async Task<List<Post>> getAllPosts()
@@ -112,7 +113,8 @@ namespace ShareSphere.Data
                 userId = item.Object.userId,
                 wps = item.Object.wps,
                 videoUrl = item.Object.videoUrl,
-                comments = item.Object.comments
+                comments = item.Object.comments,
+                filename = item.Object.filename
             }).ToList();
 
             foreach (Post iterate in postsList)
@@ -149,7 +151,7 @@ namespace ShareSphere.Data
         public async void deletePost(Post post)
         {
             await firebaseClient.Child("posts").Child(post.postId).DeleteAsync();
-            //await deletePostFromStorage();
+            await firebaseStorage.Child(post.filename).DeleteAsync();
             await getAllPosts();
         }
 
@@ -159,10 +161,6 @@ namespace ShareSphere.Data
             return await firebaseStorage.Child(video.FileName).PutAsync(videoToUpload);
         }
 
-        public async Task deletePostFromStorage(string videoFileName)
-        {
-            await firebaseStorage.Child(videoFileName).DeleteAsync();
-        }
 
         // from https://jonathancrozier.com/blog/how-to-generate-a-random-string-with-c-sharp 
         public static string generatePostId(int length)

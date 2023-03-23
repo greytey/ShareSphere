@@ -164,8 +164,8 @@ else
         if (video != null)
         {
             string videoUrl = await db.uploadPostToStorage(video);
-            db.uploadPost(gamer, new Post(FirebaseDatabase.generatePostId(10), gamer, videoUrl));
-            db.updateGamer(gamer);
+            await db.uploadPost(gamer, new Post(FirebaseDatabase.generatePostId(10), gamer, videoUrl, video.FileName));
+            await db.updateGamer(gamer);
         }
         else
         {
