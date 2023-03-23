@@ -41,7 +41,8 @@ namespace ShareSphere.Data
                 platforms = item.Object.platforms,
                 games = item.Object.games,
                 joinedAsString = item.Object.joinedAsString,
-                postIds = item.Object.postIds,
+                wpedPostsIds = item.Object.wpedPostsIds,
+                postIds = item.Object.postIds
             }).ToList();
 
             return this.gamers != null;
