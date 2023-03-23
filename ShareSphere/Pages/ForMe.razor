@@ -36,20 +36,27 @@
                 <div class="row">
                     <div id="wp-image-btn-div" class="col-auto">
                         <button id="wp-image-btn" class="interact-btn" @onclick="() => wpBtnClicked(iterate)">WP</button>
-                        <small>@iterate.wps</small>
+                        <small class="post-small">@iterate.wps</small>
                     </div>
                     <div id="comment-image-btn-div" class="col-auto">
                         <button id="comment-image-btn" class="interact-btn" @onclick="() => commentBtnClicked(iterate)">
                             <i class="bi bi-chat-square-text-fill" />
                         </button>
                     </div>
-                    <div class="col"></div>
-                    <div id="bookmark-image-btn-div" class="col-auto">
+                    <div id="bookmark-image-btn-div" class="col">
                         <button id="bookmark-image-btn" class="interact-btn" @onclick="() => bookmarkBtnClicked(iterate, iterate.userId)">
                             <i class="bi bi-bookmark-fill" />
                         </button>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <small class="post-small"></small>
+            </div>
+            <div class="col">
+                <small class="post-small"></small>
             </div>
         </div>
         <!--

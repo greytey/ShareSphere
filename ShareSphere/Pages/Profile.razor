@@ -59,17 +59,18 @@ else
         </div>
         <div class="row my-2 text-center">
             <div class="col">
-                <div id="settings-btn-div">
-                    <button id="settings-btn" class="gradient-btn w-100" onclick="@signOut">Sign out</button>
+                <div id="sign-out-btn-div">
+                    <button id="sign-out-btn" class="gradient-btn w-100" onclick="@signOut">Sign out</button>
                 </div>
             </div>
             <div class="col">
-                <div>
-                    <button id="settings-btn" class="gradient-btn w-100" onclick="@upload">+</button>
+                <div id="upload-btn-div">
+                    <button id="upload-btn" class="gradient-btn w-100" onclick="@upload">+</button>
                 </div>
             </div>
         </div>
     </div>
+
     @if(posts.Count > 0)
     {
         @foreach (Post iterate in posts)

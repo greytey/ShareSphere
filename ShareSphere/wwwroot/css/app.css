@@ -138,8 +138,16 @@ a:active {
 }
 
 /* post styles */
+#post{
+    margin-top: 40px;
+}
+
 #post-comment {
     font-size: 12px;
+}
+
+.post-small {
+    font-size: 10px;
 }
 
 /* button styles */
@@ -175,6 +183,14 @@ button {
     .select-game-btn:active {
         box-shadow: 0px 0px 5px gray;
     }
+
+.profile-info button{
+    height: 30px;
+}
+
+#post button{
+    height: 30px;
+}
 
 /* login/register form styles */
 #register-form {
