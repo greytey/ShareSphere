@@ -137,6 +137,17 @@ a:active {
     text-align: center;
 }
 
+.container{
+    margin-bottom: 100px;
+}
+
+#no-content-added {
+    margin-top: 20px;
+}
+#infinity-scroll-end{
+    margin-top: 20px;
+}
+
 /* post styles */
 #post{
     margin-top: 40px;

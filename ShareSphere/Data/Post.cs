@@ -15,6 +15,9 @@ namespace ShareSphere.Data
         public int wps { get; set; }
         public string filename { get; set; }
         public List<Comment> comments { get; set; }
+        public int views { get; set;  }
+        public DateTime date { get; set; }
+        public string game { get; set; }
 
         public Post() { }
 
@@ -25,8 +28,11 @@ namespace ShareSphere.Data
             this.gamer = gamer;
             this.videoUrl = videoUrl;
             wps = 0;
-            this.comments = new List<Comment>();
             this.filename = filename;
+            this.comments = new List<Comment>();
+            views = 0;
+            date = DateTime.Now;
+            game = "random game";
         }
 
         public void addWp()
