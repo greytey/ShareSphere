@@ -76,7 +76,7 @@ else
     {
         @foreach (Post iterate in posts)
         {
-            <PostComponent post="@iterate" isDelete="@isDelete" />
+            <PostComponent post="@iterate" isDelete="@isDelete" profileToUpdateState="@this" />
         }
     }
     else
@@ -117,10 +117,18 @@ else
             string videoUrl = await db.uploadPostToStorage(video);
             await db.uploadPost(gamer, new Post(FirebaseDatabase.generatePostId(10), gamer, videoUrl, video.FileName));
             await db.updateGamer(gamer);
+            update();
         }
         else
         {
             //error
         }
+    }
+
+    public async void update()
+    {
+        gamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
+        posts = await db.getAllPostsFromGamer(gamer);
+        StateHasChanged();
     }
 }
