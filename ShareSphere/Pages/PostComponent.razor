@@ -73,6 +73,9 @@
     [Parameter]
     public bool isDelete { get; set; }
 
+    [Parameter]
+    public Profile profileToUpdateState { get; set; }
+
     public string buttonText;
 
     protected override void OnInitialized()
@@ -95,7 +98,7 @@
             gamer.removePost(post);
             db.updateGamer(gamer);
             db.deletePost(post);
-            StateHasChanged();
+            profileToUpdateState.update();
         }
         else
         {
