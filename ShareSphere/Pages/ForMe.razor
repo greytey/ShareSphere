@@ -3,10 +3,12 @@
 @inject FirebaseDatabase db
 @inject FirebaseAuthentication firebaseAuth
 
-@foreach (Post iterate in posts)
-{
-    <PostComponent post="@iterate" isDelete="@isDelete" />
-}
+<div class="scroller">
+    @foreach (Post iterate in posts)
+    {
+        <PostComponent post="@iterate" isDelete="@isDelete" />
+    }
+</div>
 
 <p id="infinity-scroll-end">
     Seems like you have spent quite some time on our app.<br />
