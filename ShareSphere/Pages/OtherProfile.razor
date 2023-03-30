@@ -117,4 +117,10 @@ else
         }
         db.updateGamer(loggedInGamer);
     }
+
+    public async void update()
+    {
+        posts = await db.getAllPostsFromGamer(gamer);
+        StateHasChanged();
+    }
 }

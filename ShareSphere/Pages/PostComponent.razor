@@ -78,7 +78,7 @@
 
     public string buttonText;
 
-    protected override void OnInitialized()
+    protected async override void OnInitialized()
     {
         if (isDelete)
         {
@@ -86,7 +86,18 @@
         }
         else
         {
-            buttonText = "Join";
+            Gamer joinedGamer = await db.getGamerByUid(post.userId);
+            Gamer loggedInGamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
+            if (loggedInGamer.joins(joinedGamer))
+            {
+                buttonText = "Join";
+            }
+            else
+            {
+                buttonText = "Joined";
+            }
+            StateHasChanged();
+
         }
     }
 
@@ -108,12 +119,15 @@
             if (loggedInGamer.joins(joinedGamer))
             {
                 loggedInGamer.addJoins(joinedGamer);
+                buttonText = "Joined";
             }
             else
             {
                 loggedInGamer.removeJoins(joinedGamer);
+                buttonText = "Join";
             }
             db.updateGamer(loggedInGamer);
+            StateHasChanged();
         }
     }
 

@@ -56,4 +56,18 @@ else
         }
         StateHasChanged();
     }
+
+    public async void update()
+    {
+        user = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
+        foreach (string iterate in user.joinedAsString)
+        {
+            joined.Add(await db.getGamerByUsername(iterate));
+        }
+        foreach (Gamer iterate in joined)
+        {
+            posts.AddRange(await db.getAllPostsFromGamer(iterate));
+        }
+        StateHasChanged();
+    }
 }

@@ -88,4 +88,11 @@ else
         }
         StateHasChanged();
     }
+
+    public async void update()
+    {
+        posts = await db.getAllPosts();
+        games = await db.getAllGames();
+        StateHasChanged();
+    }
 }
