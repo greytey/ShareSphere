@@ -86,6 +86,22 @@ span {
     }
 }
 
+/* scroll snaps */
+.scroller {
+    margin-top: 40px;
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+    .scroller section {
+        scroll-snap-align: start;
+    }
+
+::-webkit-scrollbar {
+    display: none;
+}
+
 /* html tag styles */
 body {
     color: #E6E6E6;
@@ -137,19 +153,20 @@ a:active {
     text-align: center;
 }
 
-.container{
+.container {
     margin-bottom: 100px;
 }
 
 #no-content-added {
     margin-top: 20px;
 }
-#infinity-scroll-end{
+
+#infinity-scroll-end {
     margin-top: 20px;
 }
 
 /* post styles */
-#post{
+#post {
     margin-top: 40px;
 }
 
@@ -195,11 +212,11 @@ button {
         box-shadow: 0px 0px 5px gray;
     }
 
-.profile-info button{
+.profile-info button {
     height: 30px;
 }
 
-#post button{
+#post button {
     height: 30px;
 }
 
