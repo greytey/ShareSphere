@@ -13,24 +13,37 @@
         Select game
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        @foreach(string game in games)
+        @foreach (string game in games)
         {
             <li><button class="dropdown-item" @onclick="() => sort(game)">@game</button></li>
         }
     </ul>
 </div>
 
-@foreach (Post iterate in posts)
+@if (posts == null)
 {
-    <PostComponent post="@iterate" isDelete="@isDelete" profileToUpdateState="@null" />
+    <div class="loading-view">
+        <div class="loader"></div>
+        <p>Loading...</p>
+    </div>
+}
+else
+{
+    @foreach (Post iterate in posts)
+    {
+        <PostComponent post="@iterate" isDelete="@isDelete" profileToUpdateState="@null" />
 
+    }
+
+    <p id="infinity-scroll-end">
+        Seems like you have spent quite some time on our app.<br />
+        <i class="bi bi-chat-heart-fill"></i><br />
+        Thank you!
+    </p>
 }
 
-<p id="infinity-scroll-end">
-    Seems like you have spent quite some time on our app.<br />
-    <i class="bi bi-chat-heart-fill"></i><br />
-    Thank you!
-</p>
+
+
 
 @code {
     private string userSearch = "";
@@ -65,10 +78,11 @@
 
     public async void sort(String gamename)
     {
-        if(gamename == "All")
+        if (gamename == "All")
         {
             posts = await db.getAllPosts();
-        } else
+        }
+        else
         {
             posts = await db.getAllPostsByGame(gamename);
         }

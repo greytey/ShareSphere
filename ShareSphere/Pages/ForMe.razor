@@ -3,16 +3,38 @@
 @inject FirebaseDatabase db
 @inject FirebaseAuthentication firebaseAuth
 
-@foreach (Post iterate in posts)
+@if (posts == null)
 {
-    <PostComponent post="@iterate" isDelete="@isDelete" profileToUpdateState="null" />
+    <div class="loading-view">
+        <div class="loader"></div>
+        <p>Loading...</p>
+    </div>
+}
+else
+{
+    @if (joined == null)
+    {
+        <p id="not-followed">
+            Seems like you heve not joined someone.<br />
+            Go and join someone!
+        </p>
+    }
+    else
+    {
+        @foreach (Post iterate in posts)
+        {
+            <PostComponent post="@iterate" isDelete="@isDelete" profileToUpdateState="@null" />
+        }
+
+        <p id="infinity-scroll-end">
+            Seems like you have spent quite some time on our app.<br />
+            <i class="bi bi-chat-heart-fill"></i><br />
+            Thank you!
+        </p>
+    }
+
 }
 
-<p id="infinity-scroll-end">
-    Seems like you have spent quite some time on our app.<br />
-    <i class="bi bi-chat-heart-fill"></i><br />
-    Thank you!
-</p>
 
 @code {
     private Gamer user;

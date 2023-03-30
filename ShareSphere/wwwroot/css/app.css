@@ -137,6 +137,10 @@ a:active {
     margin: 10px;
 }
 
+#not-followed {
+    text-align: center;
+}
+
 #infinity-scroll-end {
     text-align: center;
 }
@@ -302,4 +306,35 @@ button {
 
 .games {
     font-size: 12px;
+}
+
+/* loading styles */
+.loading-view {
+    position: absolute;
+    top: 150px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 60px;
+}
+
+.loader {
+    border: 8px solid #2B2B2B;
+    border-top: 8px solid #E6E6E6;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
