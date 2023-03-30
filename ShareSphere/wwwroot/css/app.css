@@ -86,27 +86,15 @@ span {
     }
 }
 
-/* scroll snaps */
-.scroller {
-    margin-top: 40px;
-    height: 100vh;
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
-}
-
-    .scroller section {
-        scroll-snap-align: start;
-    }
-
-::-webkit-scrollbar {
-    display: none;
-}
-
 /* html tag styles */
 body {
     color: #E6E6E6;
     background-color: #1E1E1E;
     width: 100%;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 /* link styling */
