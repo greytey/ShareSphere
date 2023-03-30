@@ -8,20 +8,16 @@
     <input type="text" id="username-input" @bind="@userSearch" @onkeyup="@Enter" class="form-control" placeholder="Search">
 </div>
 
-<div class="scroll-container">
-    <div class="scroll-content">
-        <div class="row flex-row flex-nowrap">
-            <div class="col-auto">
-                <button class="select-game-btn">Fall Guys</button>
-            </div>
-            <div class="col-auto">
-                <button class="select-game-btn">Apex Legends</button>
-            </div>
-            <div class="col-auto">
-                <button class="select-game-btn">Horizon Zero Dawn</button>
-            </div>
-        </div>
-    </div>
+<div class="dropdown m-3">
+    <button class="gradient-btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Select game
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        @foreach(string game in games)
+        {
+            <li><button class="dropdown-item" @onclick="() => sort(game)">@game</button></li>
+        }
+    </ul>
 </div>
 
 @foreach (Post iterate in posts)
@@ -40,11 +36,13 @@
     private string userSearch = "";
     private List<Post> posts = new List<Post>();
     private List<string> gamerNames = new List<string>();
+    private List<string> games = new List<string>();
     private bool isDelete = false;
 
     protected async override void OnInitialized()
     {
         posts = await db.getAllPosts();
+        games = await db.getAllGames();
         StateHasChanged();
     }
 
@@ -63,5 +61,17 @@
         {
             search();
         }
+    }
+
+    public async void sort(String gamename)
+    {
+        if(gamename == "All")
+        {
+            posts = await db.getAllPosts();
+        } else
+        {
+            posts = await db.getAllPostsByGame(gamename);
+        }
+        StateHasChanged();
     }
 }

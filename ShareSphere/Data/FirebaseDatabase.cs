@@ -10,6 +10,7 @@ namespace ShareSphere.Data
         private FirebaseStorage firebaseStorage;
         private List<Gamer> gamers;
         private List<Post> postsList;
+        private List<string> games;
 
         public FirebaseDatabase()
         {
@@ -86,6 +87,13 @@ namespace ShareSphere.Data
             return null;
         }
 
+        public async Task<List<string>> getAllGames()
+        {
+            var gamesList = await firebaseClient.Child("games").OnceAsListAsync<string>();
+            games = gamesList?.Select(x => x.Object).ToList();
+            return games;
+        }
+
 
         public async Task uploadPost(Gamer gamer, Post post)
         {
@@ -118,7 +126,8 @@ namespace ShareSphere.Data
                 wps = item.Object.wps,
                 videoUrl = item.Object.videoUrl,
                 comments = item.Object.comments,
-                filename = item.Object.filename
+                filename = item.Object.filename,
+                game = item.Object.game
             }).ToList();
 
             foreach (Post iterate in postsList)
@@ -144,6 +153,22 @@ namespace ShareSphere.Data
             }
 
             return postsList;
+        }
+
+        public async Task<List<Post>> getAllPostsByGame(String gamename)
+        {
+            List<Post> postsByGame = new List<Post>();
+            List<Post> allPosts = await getAllPosts();
+
+            foreach (Post post in allPosts)
+            {
+                if(post.game == gamename)
+                {
+                    postsByGame.Add(post);
+                }
+            }
+
+            return postsByGame;
         }
 
         public async void updatePost(Post post)
