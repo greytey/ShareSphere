@@ -18,10 +18,11 @@ namespace ShareSphere.Data
         public int views { get; set;  }
         public DateTime date { get; set; }
         public string game { get; set; }
+        public string description { get; set; }
 
         public Post() { }
 
-        public Post(string postId, Gamer gamer, string videoUrl, string filename)
+        public Post(string postId, Gamer gamer, string videoUrl, string filename, string game, string description)
         {
             this.postId = postId;
             this.userId = gamer.userId;
@@ -32,7 +33,8 @@ namespace ShareSphere.Data
             this.comments = new List<Comment>();
             views = 0;
             date = DateTime.Now;
-            game = "random game";
+            this.game = game;
+            this.description = description;
         }
 
         public void addWp()

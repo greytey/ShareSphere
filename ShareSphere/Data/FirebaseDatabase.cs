@@ -108,6 +108,7 @@ namespace ShareSphere.Data
                 views = post.views,
                 date = post.date,
                 game= post.game,
+                description = post.description
             }) ;
             gamer.addPost(post);
             await updateGamer(gamer);
@@ -127,7 +128,8 @@ namespace ShareSphere.Data
                 videoUrl = item.Object.videoUrl,
                 comments = item.Object.comments,
                 filename = item.Object.filename,
-                game = item.Object.game
+                game = item.Object.game,
+                description = item.Object.description
             }).ToList();
 
             foreach (Post iterate in postsList)
