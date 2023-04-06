@@ -17,6 +17,8 @@ namespace ShareSphere.Data
         public List<string> joinedAsString { get; set; }
         public List<string> postIds { get; set; }
         public List<string> wpedPostsIds { get; set; }
+        public string photoUrl { get; set; }
+        public string filename { get; set; }
 
         public Gamer()
         {
@@ -37,18 +39,8 @@ namespace ShareSphere.Data
             joinedAsString = new List<string>();
             postIds = new List<string>();
             wpedPostsIds = new List<string>();
-        }
-
-        public Gamer(string userId, string username, string biography, List<string> platforms, List<string> games, List<string> joinedAsString, List<string> postIds, List<string> wpedPostsIds)
-        {
-            this.userId = userId;
-            this.username = username;
-            this.biography = biography;
-            this.platforms = platforms;
-            this.games = games;
-            this.joinedAsString= joinedAsString;
-            this.postIds = postIds;
-            this.wpedPostsIds = wpedPostsIds;
+            photoUrl = "https://firebasestorage.googleapis.com/v0/b/sharesphere-b9b02.appspot.com/o/bot_fill.png?alt=media&token=6fcbadf8-f292-4d2f-b855-9b1f1607767f";
+            filename = "bot_fill.png";
         }
 
         public bool joins(Gamer gamer)

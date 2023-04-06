@@ -1,4 +1,5 @@
 ﻿@page "/editProfile/{gamerId}"
+@layout FirstLayout
 @using ShareSphere.Data;
 @inject NavigationManager navMan
 @inject FirebaseDatabase db
@@ -12,42 +13,133 @@
             <input type="email" @bind="@username" id="name-input" class="form-control box" placeholder="@gamer.username">
         </div>
     </div>
+
+    <div class="form-group">
+        <label for="platform-select-input">Choose your platforms</label>
+        <div class="dropdown">
+            <button class="gradient-btn dropdown-toggle" type="button" id="platforms-dropdown-menu-btn-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @if (gamer.platforms[0] == null)
+                {
+                    <small>Select platform one</small>
+                }
+                else
+                {
+                    <small>@gamer.platforms[0]</small>
+                }
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="platforms-dropdown-menu-btn-0">
+                @foreach (string platform in allPlatforms)
+                {
+                    <li><button class="dropdown-item" @onclick="() => setPlatform(platform, 0)">@platform</button></li>
+                }
+            </ul>
+        </div>
+        <div class="dropdown">
+            <button class="gradient-btn dropdown-toggle" type="button" id="platforms-dropdown-menu-btn-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @if (gamer.platforms[0] == null)
+                {
+                    <small>Select platform two</small>
+                }
+                else
+                {
+                    <small>@gamer.platforms[1]</small>
+                }
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="platforms-dropdown-menu-btn-0">
+                @foreach (string platform in allPlatforms)
+                {
+                    <li><button class="dropdown-item" @onclick="() => setPlatform(platform, 1)">@platform</button></li>
+                }
+            </ul>
+        </div>
+        <div class="dropdown">
+            <button class="gradient-btn dropdown-toggle" type="button" id="platforms-dropdown-menu-btn-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @if (gamer.platforms[0] == null)
+                {
+                    <small>Select platform three</small>
+                }
+                else
+                {
+                    <small>@gamer.platforms[2]</small>
+                }
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="platforms-dropdown-menu-btn-0">
+                @foreach (string platform in allPlatforms)
+                {
+                    <li><button class="dropdown-item" @onclick="() => setPlatform(platform, 2)">@platform</button></li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="game-select-input">Choose your games</label>
+        <div class="dropdown">
+            <button class="gradient-btn dropdown-toggle" type="button" id="games-dropdown-menu-btn-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @if (gamer.games[0] == null)
+                {
+                    <small>Select game one</small>
+                }
+                else
+                {
+                    <small>@gamer.games[0]</small>
+                }
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="games-dropdown-menu-btn-0">
+                @foreach (string game in allGames)
+                {
+                    <li><button class="dropdown-item" @onclick="() => setGame(game, 0)">@game</button></li>
+                }
+            </ul>
+        </div>
+        <div class="dropdown">
+            <button class="gradient-btn dropdown-toggle" type="button" id="games-dropdown-menu-btn-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @if (gamer.games[1] == null)
+                {
+                    <small>Select game two</small>
+                }
+                else
+                {
+                    <small>@gamer.games[1]</small>
+                }
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="games-dropdown-menu-btn-1">
+                @foreach (string game in allGames)
+                {
+                    <li><button class="dropdown-item" @onclick="() => setGame(game, 1)">@game</button></li>
+                }
+            </ul>
+        </div>
+        <div class="dropdown">
+            <button class="gradient-btn dropdown-toggle" type="button" id="games-dropdown-menu-btn-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @if (gamer.games[2] == null)
+                {
+                    <small>Select game three</small>
+                }
+                else
+                {
+                    <small>@gamer.games[2]</small>
+                }
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="games-dropdown-menu-btn-2">
+                @foreach (string game in allGames)
+                {
+                    <li><button class="dropdown-item" @onclick="() => setGame(game, 2)">@game</button></li>
+                }
+            </ul>
+        </div>
+    </div>
+
     <div class="form-group">
         <label for="biography-input">Biography</label>
         <div id="biography-input-div">
             <textarea type="text" @bind="@biography" id="password-input" class="form-control">@gamer.biography"</textarea>
         </div>
     </div>
+
     <div class="form-group">
-        <div class="dropdown">
-            <button class="gradient-btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                @if(games[0] == null){
-                    Select game one
-                }else{
-                    @gamer[0]
-                }
-                
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                @foreach (string game in games)
-                {
-                    <li><button class="dropdown-item" @onclick="() => setGameOne(game)">@game</button></li>
-                }
-            </ul>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="row">
-            <div class="col">
-                <div id="back-btn-div">
-                    <button id="back-btn" class="gradient-btn w-100" onclick="@back">Back</button>
-                </div>
-            </div>
-            <div class="col">
-                <div id="save-btn-div">
-                    <button id="save-btn" class="gradient-btn w-100" onclick="@saveChanges">Save</button>
-                </div>
-            </div>
+        <div id="save-btn-div">
+            <button id="save-btn" class="gradient-btn w-100" onclick="@saveChanges">Save</button>
         </div>
     </div>
 </form>
@@ -59,20 +151,34 @@
 
     private Gamer gamer;
     private string username;
-    private List<string> platforms;
-    private List<string> games;
+    private List<string> allPlatforms;
+    private List<string> allGames;
     private string biography;
-    // photo
+    FileResult photo;
 
     protected async override void OnInitialized()
     {
         gamer = await db.getGamerByUid(gamerId);
+        allPlatforms = await db.getAllPlatforms();
+        allGames = await db.getAllGames();
         StateHasChanged();
     }
 
-    public void setGameOne(string game)
+    public async void setPhoto()
     {
-        
+        photo = await MediaPicker.Default.PickVideoAsync();
+    }
+
+    public void setPlatform(string platform, int index)
+    {
+        gamer.platforms[index] = platform;
+        StateHasChanged();
+    }
+
+    public void setGame(string game, int index)
+    {
+        gamer.games[index] = game;
+        StateHasChanged();
     }
 
     public void back()
@@ -80,9 +186,13 @@
         navMan.NavigateTo("/profile", true);
     }
 
-    public void saveChanges()
+    public async void saveChanges()
     {
-        // save changes
+        gamer.username = username;
+        gamer.biography = biography;
+        gamer.filename = photo.FileName;
+        gamer.photoUrl = await db.uploadPhotoToStorage();
+        await db.updateGamer(gamer);
         back();
     }
 }

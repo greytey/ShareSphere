@@ -53,6 +53,7 @@ namespace ShareSphere.Data
         public async Task updateGamer(Gamer gamer)
         {
             await firebaseClient.Child("gamers").Child(gamer.userId).PutAsync(gamer);
+            await firebaseStorage.Child(gamer.filename).DeleteAsync();
             await getGamers();
         }
 
@@ -197,6 +198,11 @@ namespace ShareSphere.Data
             return await firebaseStorage.Child(video.FileName).PutAsync(videoToUpload);
         }
 
+        public async Task<string> uploadPhotoToStorage(FileResult photo)
+        {
+            var photoToUpload = await photo.OpenReadAsync();
+            return await firebaseStorage.Child(photo.FileName).PutAsync(photoToUpload);
+        }
 
         // from https://jonathancrozier.com/blog/how-to-generate-a-random-string-with-c-sharp 
         public static string generatePostId(int length)
