@@ -52,17 +52,11 @@ else
     private List<string> gamerNames = new List<string>();
     private List<string> games = new List<string>();
     private bool isDelete = false;
-
+    private string currentUserUid;
     protected async override void OnInitialized()
     {
-        posts = await db.getAllPosts();
-        foreach(Post post in posts)
-        {
-            if (post.gamer == await db.getGamerByUid(firebaseAuth.getClient().User.Uid))
-            {
-                posts.Remove(post);
-            }
-        }
+        currentUserUid = firebaseAuth.getClient().User.Uid;
+        posts = await db.getAllPostsExceptLoggedInUser(currentUserUid);
         games = await db.getAllGames();
         StateHasChanged();
     }
@@ -88,23 +82,17 @@ else
     {
         if (gamename == null)
         {
-            posts = await db.getAllPosts();
-            foreach (Post post in posts)
-            {
-                if (post.gamer == await db.getGamerByUid(firebaseAuth.getClient().User.Uid))
-                {
-                    posts.Remove(post);
-                }
-            }
+            posts = await db.getAllPostsExceptLoggedInUser(currentUserUid);
         }
         else
         {
-            posts = await db.getAllPostsByGame(gamename);
-            foreach (Post post in posts)
+            List<Post> allPostsByGame = await db.getAllPostsByGame(gamename);
+            posts = new List<Post>();
+            foreach (Post post in allPostsByGame)
             {
-                if (post.gamer == await db.getGamerByUid(firebaseAuth.getClient().User.Uid))
+                if (post.userId != currentUserUid)
                 {
-                    posts.Remove(post);
+                    posts.Add(post);
                 }
             }
         }
@@ -113,15 +101,7 @@ else
 
     public async void update()
     {
-        posts = await db.getAllPosts();
-        foreach (Post post in posts)
-        {
-            if (post.gamer == await db.getGamerByUid(firebaseAuth.getClient().User.Uid))
-            {
-                posts.Remove(post);
-            }
-        }
-        games = await db.getAllGames();
+        posts = await db.getAllPostsExceptLoggedInUser(currentUserUid);
         StateHasChanged();
     }
 }

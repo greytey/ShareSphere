@@ -114,6 +114,20 @@ namespace ShareSphere.Data
             await updateGamer(gamer);
         }
 
+        public async Task<List<Post>> getAllPostsExceptLoggedInUser(string currentUserUid)
+        {
+            List<Post> allPosts = await getAllPosts();
+            List<Post> notFromLoggedInUser = new List<Post>();
+            foreach(Post post in allPosts)
+            {
+                if(post.userId != currentUserUid)
+                {
+                    notFromLoggedInUser.Add(post);
+                }
+            }
+            return notFromLoggedInUser;
+        }
+
         public async Task<List<Post>> getAllPosts()
         {
             var posts = await firebaseClient
