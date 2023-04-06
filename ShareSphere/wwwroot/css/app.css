@@ -308,6 +308,15 @@ button {
     font-size: 12px;
 }
 
+.cancel-div {
+    text-align: right;
+}
+
+.cancel-button {
+    background-color: transparent;
+    color: #E6E6E6;
+}
+
 .uploadmask{
     margin: 20px;
 }

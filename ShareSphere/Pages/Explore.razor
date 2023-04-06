@@ -56,6 +56,13 @@ else
     protected async override void OnInitialized()
     {
         posts = await db.getAllPosts();
+        foreach(Post post in posts)
+        {
+            if (post.gamer == await db.getGamerByUid(firebaseAuth.getClient().User.Uid))
+            {
+                posts.Remove(post);
+            }
+        }
         games = await db.getAllGames();
         StateHasChanged();
     }
@@ -82,10 +89,24 @@ else
         if (gamename == null)
         {
             posts = await db.getAllPosts();
+            foreach (Post post in posts)
+            {
+                if (post.gamer == await db.getGamerByUid(firebaseAuth.getClient().User.Uid))
+                {
+                    posts.Remove(post);
+                }
+            }
         }
         else
         {
             posts = await db.getAllPostsByGame(gamename);
+            foreach (Post post in posts)
+            {
+                if (post.gamer == await db.getGamerByUid(firebaseAuth.getClient().User.Uid))
+                {
+                    posts.Remove(post);
+                }
+            }
         }
         StateHasChanged();
     }
@@ -93,6 +114,13 @@ else
     public async void update()
     {
         posts = await db.getAllPosts();
+        foreach (Post post in posts)
+        {
+            if (post.gamer == await db.getGamerByUid(firebaseAuth.getClient().User.Uid))
+            {
+                posts.Remove(post);
+            }
+        }
         games = await db.getAllGames();
         StateHasChanged();
     }
