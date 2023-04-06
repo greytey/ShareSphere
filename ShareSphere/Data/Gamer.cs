@@ -12,16 +12,16 @@ namespace ShareSphere.Data
         public string userId { get; set; }
         public string username { get; set; }
         public string biography { get; set; }
-        public List<int> platforms { get; set; }
-        public List<int> games { get; set; }
+        public List<string> platforms { get; set; }
+        public List<string> games { get; set; }
         public List<string> joinedAsString { get; set; }
         public List<string> postIds { get; set; }
         public List<string> wpedPostsIds { get; set; }
 
         public Gamer()
         {
-            platforms = new List<int>();
-            games = new List<int>();
+            platforms = new List<string>();
+            games = new List<string>();
             joinedAsString = new List<string>();
             postIds = new List<string>();
             wpedPostsIds = new List<string>();
@@ -32,14 +32,14 @@ namespace ShareSphere.Data
             this.userId = userId;
             this.username = username;
             biography = "I'm new to this app";
-            platforms = new List<int>();
-            games = new List<int>();
+            platforms = new List<string>();
+            games = new List<string>();
             joinedAsString = new List<string>();
             postIds = new List<string>();
             wpedPostsIds = new List<string>();
         }
 
-        public Gamer(string userId, string username, string biography, List<int> platforms, List<int> games, List<string> joinedAsString, List<string> postIds, List<string> wpedPostsIds)
+        public Gamer(string userId, string username, string biography, List<string> platforms, List<string> games, List<string> joinedAsString, List<string> postIds, List<string> wpedPostsIds)
         {
             this.userId = userId;
             this.username = username;
