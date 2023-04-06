@@ -105,8 +105,8 @@
         {
             Gamer gamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
             gamer.removePost(post);
-            db.updateGamer(gamer);
-            db.deletePost(post);
+            await db.updateGamer(gamer);
+            await db.deletePost(post);
             profileToUpdateState.update();
         }
         else

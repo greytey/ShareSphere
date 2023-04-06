@@ -8,7 +8,11 @@ namespace ShareSphere.Data
 {
     public class Comment
     {
+        public string commentId {  get; set; }
+        public string postId { get; set; }
+        public string userId { get; set; }
         public Gamer gamer { get; set; }
+        public Post post { get; set; }
         public string comment { get; set; }
     }
 }
