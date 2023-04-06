@@ -10,29 +10,25 @@
         <p>Loading...</p>
     </div>
 }
+else if (joined == null)
+{
+    <p id="not-followed">
+        Seems like you heve not joined someone.<br />
+        Go and join someone!
+    </p>
+}
 else
 {
-    @if (joined == null)
+    @foreach (Post iterate in posts)
     {
-        <p id="not-followed">
-            Seems like you heve not joined someone.<br />
-            Go and join someone!
-        </p>
-    }
-    else
-    {
-        @foreach (Post iterate in posts)
-        {
-            <PostComponent post="@iterate" isDelete="@isDelete" profileToUpdateState="@null" />
-        }
-
-        <p id="infinity-scroll-end">
-            Seems like you have spent quite some time on our app.<br />
-            <i class="bi bi-chat-heart-fill"></i><br />
-            Thank you!
-        </p>
+        <PostComponent post="@iterate" isDelete="@isDelete" profileToUpdateState="@null" />
     }
 
+    <p id="infinity-scroll-end">
+        Seems like you have spent quite some time on our app.<br />
+        <i class="bi bi-chat-heart-fill"></i><br />
+        Thank you!
+    </p>
 }
 
 @code {

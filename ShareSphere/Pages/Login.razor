@@ -5,43 +5,63 @@
 @inject FirebaseDatabase db
 @inject NavigationManager navMan
 
-<form id="register-form">
-    <h3>Login</h3>
-    <div class="form-group">
-        <label for="email-input">E-Mail</label>
-        <div id="email-input-div">
-            <input type="email" @bind="@email" id="email-input" class="form-control box" placeholder="E-Mail">
-        </div>
+@if (user == null)
+{
+    <div class="loading-view">
+        <div class="loader"></div>
+        <p>Loading...</p>
     </div>
-    <div class="form-group">
-        <label for="password-input">Password</label>
-        <div id="password-input-div">
-            <input type="password" @bind="@passwort" id="password-input" class="form-control" placeholder="Password">
-        </div>
-    </div>
-    <div class="form-group">
-        <div id="register-btn-div">
-            <button id="register-btn" class="gradient-btn w-100" onclick="@loginUser">Login</button>
-        </div>
-    </div>
-    <div class="form-group">
-        <div id="switch-link-div" class="form-group">
-            <a href="/register">Go to registration</a>
-        </div>
-    </div>
-</form>
+}
+else
+{
+    @if (hasToLogin)
+    {
+        <form id="register-form">
+            <h3>Login</h3>
+            <div class="form-group">
+                <label for="email-input">E-Mail</label>
+                <div id="email-input-div">
+                    <input type="email" @bind="@email" id="email-input" class="form-control box" placeholder="E-Mail">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password-input">Password</label>
+                <div id="password-input-div">
+                    <input type="password" @bind="@passwort" id="password-input" class="form-control" placeholder="Password">
+                </div>
+            </div>
+            <div class="form-group">
+                <div id="register-btn-div">
+                    <button id="register-btn" class="gradient-btn w-100" onclick="@loginUser">Login</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div id="switch-link-div" class="form-group">
+                    <a href="/register">Go to registration</a>
+                </div>
+            </div>
+        </form>
+    }
+}
+
 
 @code {
     private string email;
     private string passwort;
+    private bool hasToLogin;
+    private User user;
 
     protected async override void OnInitialized()
     {
-        User user = firebaseAuth.getClient().User;
+        user = firebaseAuth.getClient().User;
         if (user != null)
         {
             Gamer gamer = await db.getGamerByUid(user.Uid);
             navMan.NavigateTo("/forMe", true);
+        }
+        else
+        {
+            hasToLogin = true;
         }
     }
 

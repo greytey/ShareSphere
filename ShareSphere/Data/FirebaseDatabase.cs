@@ -213,6 +213,12 @@ namespace ShareSphere.Data
             return await firebaseStorage.Child(video.FileName).PutAsync(videoToUpload);
         }
 
+        public async Task<string> uploadPhotoToStorage(FileResult photo, Gamer gamer)
+        {
+            var photoToUpload = await photo.OpenReadAsync();
+            await firebaseStorage.Child(gamer.filename).DeleteAsync();
+            return await firebaseStorage.Child(photo.FileName).PutAsync(photoToUpload);
+        }
 
         // from https://jonathancrozier.com/blog/how-to-generate-a-random-string-with-c-sharp 
         public static string generatePostId(int length)
