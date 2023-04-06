@@ -14,13 +14,17 @@ namespace ShareSphere.Data
         public string videoUrl { get; set; }
         public int wps { get; set; }
         public string filename { get; set; }
+        public List<string> commentId { get; set; }
         public List<Comment> comments { get; set; }
         public int views { get; set;  }
         public DateTime date { get; set; }
         public string game { get; set; }
         public string description { get; set; }
 
-        public Post() { }
+        public Post() {
+            this.commentId = new List<string>();
+            this.comments = new List<Comment>();
+        }
 
         public Post(string postId, Gamer gamer, string videoUrl, string filename, string game, string description)
         {
@@ -30,6 +34,7 @@ namespace ShareSphere.Data
             this.videoUrl = videoUrl;
             wps = 0;
             this.filename = filename;
+            this.commentId = new List<string>();
             this.comments = new List<Comment>();
             views = 0;
             date = DateTime.Now;
@@ -50,11 +55,13 @@ namespace ShareSphere.Data
         public void addComment(Comment comment)
         {
             comments.Add(comment);
+            commentId.Add(comment.commentId);
         }
 
         public void removeComment(Comment comment)
         {
             comments.Remove(comment);
+            commentId.Remove(comment.commentId);
         }
     }
 }
