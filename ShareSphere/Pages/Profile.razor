@@ -68,6 +68,11 @@ else
                 </div>
             </div>
             <div class="col">
+                <div id="edit-btn-div">
+                    <button id="edit-btn" class="gradient-btn w-100" onclick="@edit">Edit profile</button>
+                </div>
+            </div>
+            <div class="col">
                 <div id="upload-btn-div">
                     <button id="upload-btn" class="gradient-btn w-100" onclick="@upload">+</button>
                 </div>
@@ -112,6 +117,11 @@ else
     private async void upload()
     {
         navMan.NavigateTo("uploadPost");
+    }
+
+    public void edit()
+    {
+        navMan.NavigateTo("/editProfile/" + gamer.userId);
     }
 
     public async void update()

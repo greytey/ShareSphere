@@ -4,13 +4,15 @@
 @inject NavigationManager navMan
 @inject FirebaseDatabase db
 @inject FirebaseAuthentication firebaseAuth
+
 @if (uploading)
 {
     <div class="loading-view">
         <div class="loader"></div>
         <p>Uploading...</p>
     </div>
-} else
+}
+else
 {
     <div class="uploadmask">
         <div class="cancel-div">
@@ -56,7 +58,6 @@
     </div>
 }
 
-
 @code {
     public string description { get; set; } = "";
     public List<string> games = new List<string>();
@@ -78,10 +79,11 @@
 
     public async void uploadPost()
     {
-        if(choosenGame == "Select game")
+        if (choosenGame == "Select game")
         {
             isErrorGameHidden = false;
-        } else
+        }
+        else
         {
             isErrorGameHidden = true;
             if (video != null)

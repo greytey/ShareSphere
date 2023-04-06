@@ -53,7 +53,6 @@ namespace ShareSphere.Data
         public async Task updateGamer(Gamer gamer)
         {
             await firebaseClient.Child("gamers").Child(gamer.userId).PutAsync(gamer);
-            await firebaseStorage.Child(gamer.filename).DeleteAsync();
             await getGamers();
         }
 
@@ -214,9 +213,10 @@ namespace ShareSphere.Data
             return await firebaseStorage.Child(video.FileName).PutAsync(videoToUpload);
         }
 
-        public async Task<string> uploadPhotoToStorage(FileResult photo)
+        public async Task<string> uploadPhotoToStorage(FileResult photo, Gamer gamer)
         {
             var photoToUpload = await photo.OpenReadAsync();
+            await firebaseStorage.Child(gamer.filename).DeleteAsync();
             return await firebaseStorage.Child(photo.FileName).PutAsync(photoToUpload);
         }
 
