@@ -103,7 +103,7 @@ namespace ShareSphere.Data
                 postId = post.postId,
                 userId = post.gamer.userId,
                 wps = post.wps,
-                comments = post.comments,
+                commentId = post.commentId,
                 videoUrl = post.videoUrl,
                 filename = post.filename,
                 views = post.views,
@@ -147,13 +147,10 @@ namespace ShareSphere.Data
                 description = item.Object.description
             }).ToList();
 
-            foreach (Post iterate in postsList)
+            foreach (Post post in postsList)
             {
-                iterate.gamer = await getGamerByUid(iterate.userId);
-                foreach(string commentId in iterate.commentId)
-                {
-                    iterate.comments.Add(await getCommentById(commentId));
-                }
+                post.gamer = await getGamerByUid(post.userId);
+                await getAllCommentsForPost(post);
             }
             return postsList;
         }
@@ -162,14 +159,15 @@ namespace ShareSphere.Data
         {
             List<Post> postsList = new List<Post>();
 
-            foreach (string iterate in gamer.postIds)
+            foreach (string postId in gamer.postIds)
             {
                 Post post = await firebaseClient
                 .Child("posts")
-                .Child(iterate)
+                .Child(postId)
                 .OnceSingleAsync<Post>();
 
                 post.gamer = await getGamerByUid(post.userId);
+                await getAllCommentsForPost(post);
                 postsList.Add(post);
             }
 
@@ -199,12 +197,27 @@ namespace ShareSphere.Data
             .Child(postId)
             .OnceSingleAsync<Post>();
 
+            post.gamer = await getGamerByUid(post.userId);
+            await getAllCommentsForPost(post);
+
             return post;
         }
 
         public async Task updatePost(Post post)
         {
-            await firebaseClient.Child("posts").Child(post.postId).PutAsync(post);
+            await firebaseClient.Child("posts").Child(post.postId).PutAsync(new Post()
+            {
+                postId = post.postId,
+                userId = post.gamer.userId,
+                wps = post.wps,
+                commentId = post.commentId,
+                videoUrl = post.videoUrl,
+                filename = post.filename,
+                views = post.views,
+                date = post.date,
+                game = post.game,
+                description = post.description
+            });
             await getAllPosts();
         }
 
@@ -223,7 +236,7 @@ namespace ShareSphere.Data
 
 
         // from https://jonathancrozier.com/blog/how-to-generate-a-random-string-with-c-sharp 
-        public static string generatePostId(int length)
+        public static string generateId(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -255,6 +268,21 @@ namespace ShareSphere.Data
             comment.post = await getPostById(comment.postId);
 
             return comment;
+        }
+
+        public async Task getAllCommentsForPost(Post post)
+        {
+            foreach(string commentId in post.commentId)
+            {
+                Comment temp = await firebaseClient
+                .Child("comments")
+                .Child(commentId)
+                .OnceSingleAsync<Comment>();
+
+                temp.gamer = await getGamerByUid(temp.userId);
+                temp.post = post;
+                post.comments.Add(temp);
+            }
         }
     }
 }

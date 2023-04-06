@@ -1,6 +1,7 @@
 @using ShareSphere.Data
 @inject FirebaseDatabase db
 @inject FirebaseAuthentication firebaseAuth
+@inject NavigationManager navMan
 
 <div id="post">
     <div class="row">
@@ -150,7 +151,7 @@
 
     public async void commentBtnClicked()
     {
-        //comment pop up
+        navMan.NavigateTo("commentSection/" + post.postId);
     }
 
     public async void bookmarkBtnClicked()
