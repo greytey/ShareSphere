@@ -29,7 +29,7 @@ else
                 <div class="row">
                     @if (gamer.platforms.Count > 0)
                     {
-                        @foreach (int i in gamer.platforms)
+                        @foreach (string i in gamer.platforms)
                         {
                             <div class="col-auto platform-label rounded-1 m-1 px-2 py-1">@i</div>
                         }
@@ -43,7 +43,7 @@ else
                     <div class="col">
                         @if (gamer.games.Count > 0)
                         {
-                            @foreach (int i in gamer.games)
+                            @foreach (string i in gamer.games)
                             {
                                 <span>/ Game Nr. @i /</span>
                             }
@@ -89,8 +89,6 @@ else
         </div>
     }
 }
-
-
 
 @code {
     private Gamer gamer;

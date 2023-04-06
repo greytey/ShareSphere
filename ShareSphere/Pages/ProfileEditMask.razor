@@ -1,0 +1,88 @@
+﻿@page "/editProfile/{gamerId}"
+@using ShareSphere.Data;
+@inject NavigationManager navMan
+@inject FirebaseDatabase db
+
+<form id="edit-profile-form">
+    <h3>Edit Profile</h3>
+    <!-- file picker for photo -->
+    <div class="form-group">
+        <label for="name-input">Username</label>
+        <div id="name-input-div">
+            <input type="email" @bind="@username" id="name-input" class="form-control box" placeholder="@gamer.username">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="biography-input">Biography</label>
+        <div id="biography-input-div">
+            <textarea type="text" @bind="@biography" id="password-input" class="form-control">@gamer.biography"</textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="dropdown">
+            <button class="gradient-btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @if(games[0] == null){
+                    Select game one
+                }else{
+                    @gamer[0]
+                }
+                
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                @foreach (string game in games)
+                {
+                    <li><button class="dropdown-item" @onclick="() => setGameOne(game)">@game</button></li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+                <div id="back-btn-div">
+                    <button id="back-btn" class="gradient-btn w-100" onclick="@back">Back</button>
+                </div>
+            </div>
+            <div class="col">
+                <div id="save-btn-div">
+                    <button id="save-btn" class="gradient-btn w-100" onclick="@saveChanges">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@code {
+    [Parameter]
+    public string gamerId { get; set; }
+
+    private Gamer gamer;
+    private string username;
+    private List<string> platforms;
+    private List<string> games;
+    private string biography;
+    // photo
+
+    protected async override void OnInitialized()
+    {
+        gamer = await db.getGamerByUid(gamerId);
+        StateHasChanged();
+    }
+
+    public void setGameOne(string game)
+    {
+        
+    }
+
+    public void back()
+    {
+        navMan.NavigateTo("/profile", true);
+    }
+
+    public void saveChanges()
+    {
+        // save changes
+        back();
+    }
+}

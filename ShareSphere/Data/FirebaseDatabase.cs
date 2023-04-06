@@ -11,6 +11,7 @@ namespace ShareSphere.Data
         private List<Gamer> gamers;
         private List<Post> postsList;
         private List<string> games;
+        private List<string> platforms;
 
         public FirebaseDatabase()
         {
@@ -94,6 +95,12 @@ namespace ShareSphere.Data
             return games;
         }
 
+        public async Task<List<string>> getAllPlatforms()
+        {
+            var platformList = await firebaseClient.Child("platforms").OnceAsListAsync<string>();
+            platforms = platformList?.Select(x => x.Object).ToList();
+            return platforms;
+        }
 
         public async Task uploadPost(Gamer gamer, Post post)
         {
