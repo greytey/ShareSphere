@@ -13,6 +13,7 @@
         Select game
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><button class="dropdown-item" @onclick="() => sort(null)">All</button></li>
         @foreach (string game in games)
         {
             <li><button class="dropdown-item" @onclick="() => sort(game)">@game</button></li>
@@ -48,10 +49,11 @@ else
     private List<string> gamerNames = new List<string>();
     private List<string> games = new List<string>();
     private bool isDelete = false;
-
+    private string currentUserUid;
     protected async override void OnInitialized()
     {
-        posts = await db.getAllPosts();
+        currentUserUid = firebaseAuth.getClient().User.Uid;
+        posts = await db.getAllPostsExceptLoggedInUser(currentUserUid);
         games = await db.getAllGames();
         StateHasChanged();
     }
@@ -75,21 +77,28 @@ else
 
     public async void sort(String gamename)
     {
-        if (gamename == "All")
+        if (gamename == null)
         {
-            posts = await db.getAllPosts();
+            posts = await db.getAllPostsExceptLoggedInUser(currentUserUid);
         }
         else
         {
-            posts = await db.getAllPostsByGame(gamename);
+            List<Post> allPostsByGame = await db.getAllPostsByGame(gamename);
+            posts = new List<Post>();
+            foreach (Post post in allPostsByGame)
+            {
+                if (post.userId != currentUserUid)
+                {
+                    posts.Add(post);
+                }
+            }
         }
         StateHasChanged();
     }
 
     public async void update()
     {
-        posts = await db.getAllPosts();
-        games = await db.getAllGames();
+        posts = await db.getAllPostsExceptLoggedInUser(currentUserUid);
         StateHasChanged();
     }
 }

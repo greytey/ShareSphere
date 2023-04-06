@@ -308,6 +308,51 @@ button {
     font-size: 12px;
 }
 
+.cancel-div {
+    text-align: right;
+}
+
+.cancel-button {
+    background-color: transparent;
+    color: #E6E6E6;
+}
+
+.uploadmask{
+    margin: 20px;
+}
+
+.upload-div {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    border: 1px dashed #E6E6E6;
+    border-radius: 8px;
+}
+
+.upload-button {
+    color: #2B2B2B;
+    background-color: #E6E6E6;
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.description-textarea {
+    height: 100px;
+    background-color: transparent;
+    border: 1px solid #E6E6E6;
+    padding: 5px 2px;
+    color: #E6E6E6;
+    width: 100%;
+}
+
+.none-choosen-error {
+    color: red;
+}
+
 /* loading styles */
 .loading-view {
     position: absolute;
