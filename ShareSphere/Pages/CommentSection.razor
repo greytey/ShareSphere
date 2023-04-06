@@ -11,7 +11,7 @@
     </div>
 } else {
     <PostComponent post="@post" isDelete="@isDelete" profileToUpdateState="null" />
-    <div class="scroll-container">
+    <div>
         @foreach(Comment comment in post.comments)
         {
             <small class="my-1">@comment.gamer.username : @comment.comment</small>
