@@ -1,0 +1,115 @@
+﻿@page "/uploadPost"
+@layout FirstLayout
+@using ShareSphere.Data;
+@inject NavigationManager navMan
+@inject FirebaseDatabase db
+@inject FirebaseAuthentication firebaseAuth
+@if (uploading)
+{
+    <div class="loading-view">
+        <div class="loader"></div>
+        <p>Uploading...</p>
+    </div>
+} else
+{
+    <div class="uploadmask">
+        <div class="cancel-div">
+            <button onclick="@cancel" class="btn cancel-button">x</button>
+        </div>
+        <div class="upload-div my-3">
+            @if (video != null)
+            {
+                <button class="upload-button" onclick="@chooseVideo">Choose another video</button>
+            }
+            else
+            {
+                <button class="upload-button" onclick="@chooseVideo">Choose a video</button>
+            }
+        </div>
+        @if (video != null)
+        {
+            <p>Choosen: @video.FileName</p>
+        }
+
+        <small hidden="@isErrorVideoHidden" class="none-choosen-error my-1">Error: There was an error with the video you choose. Please try again.</small>
+
+        <div>
+            <textarea @bind="@description" placeholder="Description of video..." class="description-textarea my-3"></textarea>
+        </div>
+        <div>
+            <div class="dropdown my-3">
+                <button class="gradient-btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @choosenGame
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    @foreach (string game in games)
+                    {
+                        <li><button class="dropdown-item" @onclick="() => setGame(game)">@game</button></li>
+                    }
+                </ul>
+                <small hidden="@isErrorGameHidden" class="none-choosen-error my-1">Error: Choose the displayed game. Choose "others" if your game is not an option.</small>
+            </div>
+        </div>
+        <div>
+            <button class="gradient-btn w-100 my-3" onclick="@uploadPost">Upload</button>
+        </div>
+    </div>
+}
+
+
+@code {
+    public string description { get; set; } = "";
+    public List<string> games = new List<string>();
+    public string choosenGame { get; set; } = "Select game";
+    public bool isErrorGameHidden = true;
+    public bool isErrorVideoHidden = true;
+    public FileResult video = null;
+    public bool uploading = false;
+
+    protected async override void OnInitialized()
+    {
+        games = await db.getAllGames();
+    }
+
+    public void setGame(string choosenGame)
+    {
+        this.choosenGame = choosenGame;
+    }
+
+    public async void uploadPost()
+    {
+        if(choosenGame == "Select game")
+        {
+            isErrorGameHidden = false;
+        } else
+        {
+            isErrorGameHidden = true;
+            if (video != null)
+            {
+                uploading = true;
+                StateHasChanged();
+                Gamer gamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
+                string videoUrl = await db.uploadPostToStorage(video);
+                await db.uploadPost(gamer, new Post(FirebaseDatabase.generatePostId(10), gamer, videoUrl, video.FileName, choosenGame, description));
+                await db.updateGamer(gamer);
+                uploading = false;
+                navMan.NavigateTo("profile");
+            }
+            else
+            {
+                isErrorVideoHidden = false;
+            }
+        }
+    }
+
+    public async void chooseVideo()
+    {
+        video = await MediaPicker.Default.PickVideoAsync();
+        StateHasChanged();
+    }
+
+    public void cancel()
+    {
+        navMan.NavigateTo("profile");
+    }
+}

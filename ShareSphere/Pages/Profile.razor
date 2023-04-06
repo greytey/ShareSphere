@@ -111,19 +111,7 @@ else
 
     private async void upload()
     {
-        FileResult video = await MediaPicker.Default.PickVideoAsync();
-
-        if (video != null)
-        {
-            string videoUrl = await db.uploadPostToStorage(video);
-            await db.uploadPost(gamer, new Post(FirebaseDatabase.generatePostId(10), gamer, videoUrl, video.FileName));
-            await db.updateGamer(gamer);
-            update();
-        }
-        else
-        {
-            //error
-        }
+        navMan.NavigateTo("uploadPost");
     }
 
     public async void update()

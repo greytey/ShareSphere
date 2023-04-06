@@ -116,9 +116,24 @@ namespace ShareSphere.Data
                 views = post.views,
                 date = post.date,
                 game= post.game,
+                description = post.description
             }) ;
             gamer.addPost(post);
             await updateGamer(gamer);
+        }
+
+        public async Task<List<Post>> getAllPostsExceptLoggedInUser(string currentUserUid)
+        {
+            List<Post> allPosts = await getAllPosts();
+            List<Post> notFromLoggedInUser = new List<Post>();
+            foreach(Post post in allPosts)
+            {
+                if(post.userId != currentUserUid)
+                {
+                    notFromLoggedInUser.Add(post);
+                }
+            }
+            return notFromLoggedInUser;
         }
 
         public async Task<List<Post>> getAllPosts()
@@ -135,7 +150,8 @@ namespace ShareSphere.Data
                 videoUrl = item.Object.videoUrl,
                 comments = item.Object.comments,
                 filename = item.Object.filename,
-                game = item.Object.game
+                game = item.Object.game,
+                description = item.Object.description
             }).ToList();
 
             foreach (Post iterate in postsList)
