@@ -1,6 +1,7 @@
 @using ShareSphere.Data
 @inject FirebaseDatabase db
 @inject FirebaseAuthentication firebaseAuth
+@inject NavigationManager navMan
 
 <div id="post">
     <div class="row">
@@ -38,6 +39,7 @@
                 <div id="comment-image-btn-div" class="col-auto">
                     <button id="comment-image-btn" class="interact-btn" @onclick="() => commentBtnClicked()">
                         <i class="bi bi-chat-square-text-fill" />
+                        <small class="post-small">@post.comments.Count</small>
                     </button>
                 </div>
                 <div class="col"></div>
@@ -105,8 +107,8 @@
         {
             Gamer gamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
             gamer.removePost(post);
-            db.updateGamer(gamer);
-            db.deletePost(post);
+            await db.updateGamer(gamer);
+            await db.deletePost(post);
             profileToUpdateState.update();
         }
         else
@@ -150,7 +152,7 @@
 
     public async void commentBtnClicked()
     {
-        //comment pop up
+        navMan.NavigateTo("commentSection/" + post.postId);
     }
 
     public async void bookmarkBtnClicked()

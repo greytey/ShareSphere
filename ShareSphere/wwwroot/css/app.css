@@ -318,7 +318,13 @@ button {
     color: #E6E6E6;
 }
 
-.uploadmask {
+.input-comment {
+    background-color: #2B2B2B;
+    border: none;
+    color: #E6E6E6;
+}
+
+.uploadmask{
     margin: 20px;
 }
 

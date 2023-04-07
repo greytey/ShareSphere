@@ -92,7 +92,7 @@ else
                 StateHasChanged();
                 Gamer gamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
                 string videoUrl = await db.uploadPostToStorage(video);
-                await db.uploadPost(gamer, new Post(FirebaseDatabase.generatePostId(10), gamer, videoUrl, video.FileName, choosenGame, description));
+                await db.uploadPost(new Post(FirebaseDatabase.generateId(10), gamer, videoUrl, video.FileName, choosenGame, description));
                 await db.updateGamer(gamer);
                 uploading = false;
                 navMan.NavigateTo("profile");

@@ -1,0 +1,55 @@
+﻿@page "/commentsection/{postid}"
+@layout FirstLayout
+@using ShareSphere.Data
+@inject FirebaseDatabase db
+@inject FirebaseAuthentication firebaseAuth
+
+@if(post == null){
+    <div class="loading-view">
+        <div class="loader"></div>
+        <p>Loading...</p>
+    </div>
+} else {
+    <PostComponent post="@post" isDelete="@isDelete" profileToUpdateState="null" />
+    <div>
+        @foreach(Comment comment in post.comments)
+        {
+            <small class="my-1">@comment.gamer.username : @comment.comment</small>
+        }
+    </div>
+    <forms>
+        <div class="row my-3">
+            <div class="col-8">
+                <input type="text" @bind="@newComment" class="input-comment" placeholder="Comment something..."/>
+            </div>
+            <div class="col-4">
+                <button onclick="@comment" class="gradient-btn w-100">Send</button>
+            </div>
+        </div>
+    </forms>
+}
+
+@code {
+    [Parameter]
+    public string postId { get; set; }
+
+    public Post post = null;
+    public bool isDelete;
+
+    public string newComment = "";
+
+    protected async override void OnInitialized(){
+        post = await db.getPostById(postId);
+        isDelete = post.userId == firebaseAuth.getClient().User.Uid;
+        StateHasChanged();
+    }
+
+    public async void comment()
+    {
+        await db.uploadComment(new Comment(post.postId, post.userId, post.gamer, post, newComment));
+        post = await db.getPostById(postId);
+        newComment = "";
+        StateHasChanged();
+    }
+
+}
