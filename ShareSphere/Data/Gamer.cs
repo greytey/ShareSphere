@@ -31,11 +31,14 @@ namespace ShareSphere.Data
 
         public Gamer(string userId, string username)
         {
+            string[] placeholderArray = { "", "", "" };
             this.userId = userId;
             this.username = username;
             biography = "I'm new to this app";
             platforms = new List<string>();
+            platforms.AddRange(placeholderArray);
             games = new List<string>();
+            games.AddRange(placeholderArray);
             joinedAsString = new List<string>();
             postIds = new List<string>();
             wpedPostsIds = new List<string>();

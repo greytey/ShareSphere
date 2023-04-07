@@ -213,10 +213,16 @@ namespace ShareSphere.Data
             return await firebaseStorage.Child(video.FileName).PutAsync(videoToUpload);
         }
 
-        public async Task<string> uploadPhotoToStorage(FileResult photo, Gamer gamer)
+        public async Task<string> uploadPhotoToStorage(FileResult photo, string filename)
         {
             var photoToUpload = await photo.OpenReadAsync();
-            await firebaseStorage.Child(gamer.filename).DeleteAsync();
+            if (filename != "bot_fill.png")
+            {
+                if (filename != photo.FileName)
+                {
+                    await firebaseStorage.Child(filename).DeleteAsync();
+                }
+            }
             return await firebaseStorage.Child(photo.FileName).PutAsync(photoToUpload);
         }
 

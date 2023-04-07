@@ -5,50 +5,47 @@
 @inject FirebaseDatabase db
 @inject NavigationManager navMan
 
-@if (user == null)
+@if (!hasToLogin)
 {
     <div class="loading-view">
         <div class="loader"></div>
         <p>Loading...</p>
     </div>
 }
-else
+@if (hasToLogin)
 {
-    @if (hasToLogin)
-    {
-        <form id="register-form">
-            <h3>Login</h3>
-            <div class="form-group">
-                <label for="email-input">E-Mail</label>
-                <div id="email-input-div">
-                    <input type="email" @bind="@email" id="email-input" class="form-control box" placeholder="E-Mail">
-                </div>
+    <form id="register-form">
+        <h3>Login</h3>
+        <div class="form-group">
+            <label for="email-input">E-Mail</label>
+            <div id="email-input-div">
+                <input type="email" @bind="@email" id="email-input" class="form-control box" placeholder="E-Mail">
             </div>
-            <div class="form-group">
-                <label for="password-input">Password</label>
-                <div id="password-input-div">
-                    <input type="password" @bind="@passwort" id="password-input" class="form-control" placeholder="Password">
-                </div>
+        </div>
+        <div class="form-group">
+            <label for="password-input">Password</label>
+            <div id="password-input-div">
+                <input type="password" @bind="@passwort" id="password-input" class="form-control" placeholder="Password">
             </div>
-            <div class="form-group">
-                <div id="register-btn-div">
-                    <button id="register-btn" class="gradient-btn w-100" onclick="@loginUser">Login</button>
-                </div>
+        </div>
+        <div class="form-group">
+            <div id="register-btn-div">
+                <button id="register-btn" class="gradient-btn w-100" onclick="@loginUser">Login</button>
             </div>
-            <div class="form-group">
-                <div id="switch-link-div" class="form-group">
-                    <a href="/register">Go to registration</a>
-                </div>
+        </div>
+        <div class="form-group">
+            <div id="switch-link-div" class="form-group">
+                <a href="/register">Go to registration</a>
             </div>
-        </form>
-    }
+        </div>
+    </form>
 }
 
 
 @code {
     private string email;
     private string passwort;
-    private bool hasToLogin;
+    private bool hasToLogin = false;
     private User user;
 
     protected async override void OnInitialized()

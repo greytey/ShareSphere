@@ -318,7 +318,7 @@ button {
     color: #E6E6E6;
 }
 
-.uploadmask{
+.uploadmask {
     margin: 20px;
 }
 
@@ -352,6 +352,15 @@ button {
 
 .none-choosen-error {
     color: red;
+}
+
+/* edit profile styles */
+#edit-profile-form{
+    margin-top: 40px;
+}
+
+.form-group .dropdown {
+    margin-bottom: 20px;
 }
 
 /* loading styles */

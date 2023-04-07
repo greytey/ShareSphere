@@ -22,19 +22,16 @@ else
     }
     else
     {
-        <form id="edit-profile-form">
+        <div id="edit-profile-form">
             <div class="row">
                 <div class="col">
                     <h3>Edit Profile</h3>
                 </div>
                 <div class="cancel-div col-auto">
-                    <button onclick="@cancel" class="btn cancel-button">x</button>
+                    <button onclick="@cancel" class="cancel-button">x</button>
                 </div>
             </div>
             <div class="uploadmask">
-                <div class="cancel-div">
-                    <button onclick="@cancel" class="btn cancel-button">x</button>
-                </div>
                 <div class="upload-div my-3">
                     <button class="upload-button" onclick="@setPhoto">Choose a diffrent photo</button>
                 </div>
@@ -51,7 +48,7 @@ else
             <div class="form-group">
                 <label for="name-input">Username</label>
                 <div id="name-input-div">
-                    <input type="email" @bind="@username" id="name-input" class="form-control box" placeholder="@gamer.username">
+                    <input type="text" @bind="@username" id="name-input" class="form-control box" placeholder="@gamer.username">
                 </div>
             </div>
 
@@ -77,7 +74,7 @@ else
                 </div>
                 <div class="dropdown">
                     <button class="gradient-btn dropdown-toggle" type="button" id="platforms-dropdown-menu-btn-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        @if (gamer.platforms[0] == null)
+                        @if (gamer.platforms[1] == null)
                         {
                             <small>Select platform two</small>
                         }
@@ -95,7 +92,7 @@ else
                 </div>
                 <div class="dropdown">
                     <button class="gradient-btn dropdown-toggle" type="button" id="platforms-dropdown-menu-btn-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        @if (gamer.platforms[0] == null)
+                        @if (gamer.platforms[2] == null)
                         {
                             <small>Select platform three</small>
                         }
@@ -174,7 +171,7 @@ else
             <div class="form-group">
                 <label for="biography-input">Biography</label>
                 <div id="biography-input-div">
-                    <textarea type="text" @bind="@biography" id="password-input" class="form-control">@gamer.biography"</textarea>
+                    <textarea type="text" @bind="@biography" id="password-input" class="form-control">@gamer.biography</textarea>
                 </div>
             </div>
 
@@ -183,7 +180,7 @@ else
                     <button id="save-btn" class="gradient-btn w-100" onclick="@saveChanges">Save</button>
                 </div>
             </div>
-        </form>
+        </div>
     }
 }
 
@@ -197,7 +194,7 @@ else
     private List<string> allPlatforms;
     private List<string> allGames;
     private string biography;
-    FileResult photo;
+    FileResult photo = null;
     private bool uploading = false;
 
     protected async override void OnInitialized()
@@ -210,20 +207,18 @@ else
 
     public async void setPhoto()
     {
-        photo = await MediaPicker.Default.PickVideoAsync();
+        photo = await MediaPicker.Default.PickPhotoAsync();
         StateHasChanged();
     }
 
-    public void setPlatform(string platform, int index)
+    public async void setPlatform(string platform, int index)
     {
         gamer.platforms[index] = platform;
-        StateHasChanged();
     }
 
     public void setGame(string game, int index)
     {
         gamer.games[index] = game;
-        StateHasChanged();
     }
 
     public void cancel()
@@ -235,12 +230,21 @@ else
     {
         uploading = true;
         StateHasChanged();
-        gamer.username = username;
-        gamer.biography = biography;
-        if (gamer.filename != photo.FileName)
+        if (username != null)
         {
-            gamer.filename = photo.FileName;
-            gamer.photoUrl = await db.uploadPhotoToStorage(photo, gamer);
+            gamer.username = username;
+        }
+        if (biography != null)
+        {
+            gamer.biography = biography;
+        }
+        if(photo != null)
+        {
+            if (gamer.filename != photo.FileName)
+            {
+                gamer.photoUrl = await db.uploadPhotoToStorage(photo, gamer.filename);
+                gamer.filename = photo.FileName;
+            }
         }
         await db.updateGamer(gamer);
         uploading = false;
