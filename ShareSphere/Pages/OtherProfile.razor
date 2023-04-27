@@ -112,15 +112,14 @@ else
         if (loggedInGamer.joins(gamer))
         {
             loggedInGamer.addJoins(gamer);
-            JoinButtonText = "Join";
-            StateHasChanged();
+            JoinButtonText = "Joined";
         }
         else
         {
             loggedInGamer.removeJoins(gamer);
-            JoinButtonText = "Joined";
-            StateHasChanged();
+            JoinButtonText = "Join";
         }
+        StateHasChanged();
         db.updateGamer(loggedInGamer);
     }
 
