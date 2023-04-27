@@ -45,7 +45,9 @@ namespace ShareSphere.Data
                 games = item.Object.games,
                 joinedAsString = item.Object.joinedAsString,
                 wpedPostsIds = item.Object.wpedPostsIds,
-                postIds = item.Object.postIds
+                postIds = item.Object.postIds,
+                filename = item.Object.filename,
+                photoUrl= item.Object.photoUrl,
             }).ToList();
 
             return this.gamers != null;
