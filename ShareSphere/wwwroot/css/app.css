@@ -195,11 +195,6 @@ button {
     height: 36px;
 }
 
-#dropdownMenuButton1 {
-    margin-top: 24px;
-    height: 36px;
-}
-
 #comment-send-btn {
     height: 36px;
 }
@@ -350,16 +345,18 @@ button {
 .upload-button {
     color: #2B2B2B;
     background-color: #E6E6E6;
-    border-radius: 15px;
+    border-radius: 5px;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
 
 .description-textarea {
+    margin-top: 24px;
     height: 100px;
     background-color: transparent;
     border: 1px solid #E6E6E6;
+    border-radius: 5px;
     padding: 5px 2px;
     color: #E6E6E6;
     width: 100%;
