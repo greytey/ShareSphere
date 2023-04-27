@@ -296,7 +296,13 @@ button {
 
 /* profile styles */
 .profile-info-icon {
-    height: 50px;
+    height: 75px;
+}
+
+.profile-info-icon-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .username {

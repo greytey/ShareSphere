@@ -15,7 +15,7 @@ else
 {
     <div class="profile-info my-2">
         <div class="row">
-            <div class="col-3 mx-auto py-2 justify-content-center align-items-center">
+            <div class="col-3 profile-info-icon-div">
                 <img src="@gamer.photoUrl" class="rounded-circle profile-info-icon" />
             </div>
             <div class="col-9 ml-1">
@@ -112,10 +112,12 @@ else
         if (loggedInGamer.joins(gamer))
         {
             loggedInGamer.addJoins(gamer);
+            JoinButtonText = "Join";
         }
         else
         {
             loggedInGamer.removeJoins(gamer);
+            JoinButtonText = "Joined";
         }
         db.updateGamer(loggedInGamer);
     }
