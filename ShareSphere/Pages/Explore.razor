@@ -8,8 +8,8 @@
     <input type="text" id="username-input" @bind="@userSearch" @onkeyup="@Enter" class="form-control" placeholder="Search">
 </div>
 
-<div class="dropdown m-3">
-    <button class="gradient-btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<div class="dropdown">
+    <button class="gradient-btn dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Select game
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -50,21 +50,27 @@ else
     private List<string> games = new List<string>();
     private bool isDelete = false;
     private string currentUserUid;
+    private Gamer gamer;
+
     protected async override void OnInitialized()
     {
         currentUserUid = firebaseAuth.getClient().User.Uid;
         posts = await db.getAllPostsExceptLoggedInUser(currentUserUid);
         games = await db.getAllGames();
         StateHasChanged();
+        User user = firebaseAuth.getClient().User;
+        gamer = await db.getGamerByUid(user.Uid);
     }
 
     async void search()
     {
-        if (userSearch.Length >= 3)
+        if (gamer.username != userSearch)
         {
-            navMan.NavigateTo("/profile/" + userSearch);
+            if (userSearch.Length >= 3)
+            {
+                navMan.NavigateTo("/profile/" + userSearch);
+            }
         }
-
     }
 
     public void Enter(KeyboardEventArgs e)

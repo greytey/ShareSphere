@@ -195,6 +195,15 @@ button {
     height: 36px;
 }
 
+#dropdownMenuButton1 {
+    margin-top: 24px;
+    height: 36px;
+}
+
+#comment-send-btn {
+    height: 36px;
+}
+
 .select-game-btn {
     margin: 10px 5px 5px 0px;
     background-color: #2B2B2B;
