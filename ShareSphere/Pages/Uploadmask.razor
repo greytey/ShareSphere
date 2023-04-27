@@ -18,7 +18,7 @@ else
         <div class="cancel-div">
             <button onclick="@cancel" class="btn cancel-button">x</button>
         </div>
-        <div class="upload-div my-3">
+        <div class="upload-div">
             @if (video != null)
             {
                 <button class="upload-button" onclick="@chooseVideo">Choose another video</button>
@@ -33,14 +33,14 @@ else
             <p>Choosen: @video.FileName</p>
         }
 
-        <small hidden="@isErrorVideoHidden" class="none-choosen-error my-1">Error: There was an error with the video you choose. Please try again.</small>
+        <small hidden="@isErrorVideoHidden" class="none-choosen-error">Error: There was an error with the video you choose. Please try again.</small>
 
         <div>
-            <textarea @bind="@description" placeholder="Description of video..." class="description-textarea my-3"></textarea>
+            <textarea @bind="@description" placeholder="Description of video..." class="description-textarea"></textarea>
         </div>
         <div>
-            <div class="dropdown my-3">
-                <button class="gradient-btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="dropdown">
+                <button class="gradient-btn dropdown-toggle w-100" type="button" id="register-btn" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     @choosenGame
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -49,11 +49,11 @@ else
                         <li><button class="dropdown-item" @onclick="() => setGame(game)">@game</button></li>
                     }
                 </ul>
-                <small hidden="@isErrorGameHidden" class="none-choosen-error my-1">Error: Choose the displayed game. Choose "others" if your game is not an option.</small>
+                <small hidden="@isErrorGameHidden" class="none-choosen-error">Error: Choose the displayed game. Choose "others" if your game is not an option.</small>
             </div>
         </div>
         <div>
-            <button class="gradient-btn w-100 my-3" onclick="@uploadPost">Upload</button>
+            <button id="register-btn" class="gradient-btn w-100" onclick="@uploadPost">Upload</button>
         </div>
     </div>
 }
