@@ -14,19 +14,19 @@
     <div>
         @foreach(Comment comment in post.comments)
         {
-            <small class="my-1">@comment.gamer.username : @comment.comment</small>
+            <small class="my-1">@comment.gamer.username : @comment.comment</small><br/>
         }
     </div>
-    <forms>
+    <form>
         <div class="row my-3">
             <div class="col-8">
-                <input type="text" @bind="@newComment" class="input-comment" placeholder="Comment something..."/>
+                <input type="text" @bind="@newComment" class="input-comment form-control" placeholder="Comment something..." />
             </div>
             <div class="col-4">
-                <button onclick="@comment" class="gradient-btn w-100">Send</button>
+                <button onclick="@comment" id="comment-send-btn" class="gradient-btn w-100">Send</button>
             </div>
         </div>
-    </forms>
+    </form>
 }
 
 @code {
@@ -35,18 +35,20 @@
 
     public Post post = null;
     public bool isDelete;
-
     public string newComment = "";
+    public Gamer gamer;
 
     protected async override void OnInitialized(){
         post = await db.getPostById(postId);
         isDelete = post.userId == firebaseAuth.getClient().User.Uid;
         StateHasChanged();
+        User user = firebaseAuth.getClient().User;
+        gamer = await db.getGamerByUid(user.Uid);
     }
 
     public async void comment()
     {
-        await db.uploadComment(new Comment(post.postId, post.userId, post.gamer, post, newComment));
+        await db.uploadComment(new Comment(post.postId, gamer.userId, gamer, post, newComment));
         post = await db.getPostById(postId);
         newComment = "";
         StateHasChanged();
