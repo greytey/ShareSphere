@@ -15,7 +15,7 @@ else
 {
     <div class="profile-info my-2">
         <div class="row">
-            <div class="col-3 mr-1 py-2">
+            <div class="col-3 mx-auto py-2 justify-content-center align-items-center">
                 <img src="@gamer.photoUrl" class="rounded-circle profile-info-icon" />
             </div>
             <div class="col-9 ml-1">
@@ -39,7 +39,7 @@ else
                         {
                             @foreach (string i in gamer.games)
                             {
-                                <span>/ Game Nr. @i /</span>
+                                <span>/ @i /</span>
                             }
                         }
                         else
@@ -58,7 +58,7 @@ else
         <div class="row my-2">
             <div class="col">
                 <div id="join-btn-div">
-                    <button id="join-btn" class="gradient-btn btn-block" @onclick="@joinBtnClicked">Join</button>
+                    <button id="join-btn" class="gradient-btn w-100" @onclick="@joinBtnClicked">@JoinButtonText</button>
                 </div>
             </div>
         </div>
@@ -87,6 +87,8 @@ else
     private List<Post> posts = new List<Post>();
     private bool isDelete = false;
 
+    private string JoinButtonText = "Join";
+
 
     protected async override void OnInitialized()
     {
@@ -94,6 +96,8 @@ else
         {
             gamer = await db.getGamerByUsername(potentialUser);
             posts = await db.getAllPostsFromGamer(gamer);
+            Gamer loggedInGamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
+            JoinButtonText = loggedInGamer.joins(gamer) ? "Join" : "Joined";
             StateHasChanged();
         }
         catch (Exception e)
@@ -105,7 +109,7 @@ else
     private async void joinBtnClicked()
     {
         Gamer loggedInGamer = await db.getGamerByUid(firebaseAuth.getClient().User.Uid);
-        if (!loggedInGamer.joins(gamer))
+        if (loggedInGamer.joins(gamer))
         {
             loggedInGamer.addJoins(gamer);
         }

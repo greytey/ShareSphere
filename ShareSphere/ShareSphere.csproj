@@ -50,14 +50,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="FirebaseAuthentication.net" Version="4.0.1" />
-      <PackageReference Include="FirebaseDatabase.net" Version="4.1.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="FirebaseAuthentication.net" Version="4.0.1" />
-      <PackageReference Include="FirebaseDatabase.net" Version="4.1.0" />
+      <PackageReference Include="FirebaseAuthentication.net" Version="4.0.2" />
+      <PackageReference Include="FirebaseDatabase.net" Version="4.2.0" />
       <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
     </ItemGroup>
 
+	<PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
+		<AndroidkeyStore>True</AndroidkeyStore>
+		<AndroidSigningKeyStore>..\key.keystore</AndroidSigningKeyStore>
+			<AndroidSigningStorePass>ShareSphere</AndroidSigningStorePass>
+			<AndroidSigningkeyAlias>MauiAlias</AndroidSigningkeyAlias>
+			<AndroidSigningKeyPass>ShareSphere</AndroidSigningKeyPass>
+    </PropertyGroup>
 </Project>
