@@ -55,7 +55,7 @@ else
             <div class="form-group">
                 <label for="platform-select-input">Choose your platforms</label>
                 <div class="dropdown">
-                    <button class="gradient-btn dropdown-toggle" type="button" id="platforms-dropdown-menu-btn-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="gradient-btn dropdown-toggle dropdown-menu-btn w-100" type="button" id="platforms-dropdown-menu-btn-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         @if (gamer.platforms[0] == null)
                         {
                             <small>Select platform one</small>
@@ -73,7 +73,7 @@ else
                     </ul>
                 </div>
                 <div class="dropdown">
-                    <button class="gradient-btn dropdown-toggle" type="button" id="platforms-dropdown-menu-btn-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="gradient-btn dropdown-toggle dropdown-menu-btn w-100" type="button" id="platforms-dropdown-menu-btn-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         @if (gamer.platforms[1] == null)
                         {
                             <small>Select platform two</small>
@@ -91,7 +91,7 @@ else
                     </ul>
                 </div>
                 <div class="dropdown">
-                    <button class="gradient-btn dropdown-toggle" type="button" id="platforms-dropdown-menu-btn-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="gradient-btn dropdown-toggle dropdown-menu-btn w-100" type="button" id="platforms-dropdown-menu-btn-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         @if (gamer.platforms[2] == null)
                         {
                             <small>Select platform three</small>
@@ -113,7 +113,7 @@ else
             <div class="form-group">
                 <label for="game-select-input">Choose your games</label>
                 <div class="dropdown">
-                    <button class="gradient-btn dropdown-toggle" type="button" id="games-dropdown-menu-btn-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="gradient-btn dropdown-toggle dropdown-menu-btn w-100" type="button" id="games-dropdown-menu-btn-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         @if (gamer.games[0] == null)
                         {
                             <small>Select game one</small>
@@ -131,7 +131,7 @@ else
                     </ul>
                 </div>
                 <div class="dropdown">
-                    <button class="gradient-btn dropdown-toggle" type="button" id="games-dropdown-menu-btn-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="gradient-btn dropdown-toggle dropdown-menu-btn w-100" type="button" id="games-dropdown-menu-btn-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         @if (gamer.games[1] == null)
                         {
                             <small>Select game two</small>
@@ -149,7 +149,7 @@ else
                     </ul>
                 </div>
                 <div class="dropdown">
-                    <button class="gradient-btn dropdown-toggle" type="button" id="games-dropdown-menu-btn-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="gradient-btn dropdown-toggle dropdown-menu-btn w-100" type="button" id="games-dropdown-menu-btn-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         @if (gamer.games[2] == null)
                         {
                             <small>Select game three</small>
@@ -177,7 +177,7 @@ else
 
             <div class="form-group">
                 <div id="save-btn-div">
-                    <button id="save-btn" class="gradient-btn w-100" onclick="@saveChanges">Save</button>
+                    <button id="save-btn" class="gradient-btn w-100 dropdown-menu-btn" onclick="@saveChanges">Save</button>
                 </div>
             </div>
         </div>
